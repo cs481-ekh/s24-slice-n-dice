@@ -1,14 +1,18 @@
-
+'''This File is for widgets used by GoVizzy
+    Input form: widget for uploading a .cube file
+    Documentation for widget library: https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload
+'''
 from IPython.display import display
-import ipywidgets as widgets
-from widgets import Layout, Button, Box, Textarea, Label
+from ipywidgets import Layout, Button, Box, Textarea, Label
 
+# Layout for Input form
 form_item_layout = Layout(
     display='flex',
     flex_flow='row',
     justify_content='space-between'
 )
 
+# Input form items
 form_items = [
 
     Box([Label(value='Path to .cube file'), 
@@ -17,6 +21,7 @@ form_items = [
     
 ]
 
+# Create the input form box
 form = Box(form_items, layout=Layout(
     display='flex',
     flex_flow='row',
@@ -25,5 +30,3 @@ form = Box(form_items, layout=Layout(
     width='50%'
 ))
 form
-
-display(form)
