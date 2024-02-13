@@ -1,6 +1,7 @@
 name: Hello World
 run-name: Hello World
 jobs:
-  runs-on: ubuntu-latest
-  steps:
-    - run: echo "Hello world!"
+  Hello-World:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello world!"
