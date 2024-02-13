@@ -1,6 +1,7 @@
 name: Hello World
 run-name: Hello World
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 jobs:
   Hello-World:
     runs-on: ubuntu-latest
