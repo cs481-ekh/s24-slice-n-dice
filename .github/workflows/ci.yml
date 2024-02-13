@@ -9,6 +9,8 @@ jobs:
     build:
         timeout-minutes: 10
         runs-on: ubuntu-latest
+        env:
+            ACTIONS_ENVIRONMENT: true
         steps:
             - uses: actions/checkout@v3
             - name: Run build.sh 🏗️
@@ -17,8 +19,6 @@ jobs:
         timeout-minutes: 10
         runs-on: ubuntu-latest
         needs: build
-        env:
-            ACTIONS_ENVIRONMENT: true
         steps:
             - name: Run test.sh 🧪
               run: ./test.sh
