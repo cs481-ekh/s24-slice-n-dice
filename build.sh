@@ -1,7 +1,7 @@
 #!/bin/bash
 python -m venv .venv
 
-.venv/bin/pip3 install jupyter ipython_genutils ipyvolume pytest
+.venv/bin/pip3 install jupyter ipython_genutils ipyvolume pytest ase
 
 if [ "$ACTIONS_ENVIRONMENT" = true ]; then
     echo "Running in Github action. Will not start JupyterLab."
