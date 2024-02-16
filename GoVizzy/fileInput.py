@@ -44,3 +44,26 @@ def copy_file(source_path, destination_path):
     except Exception as e:
         print(f"Error copying file: {e}")
 
+# TODO: add to GoVizzy.pynb instead? using this to run 
+if __name__ == "__main__":
+    directory = "./"
+    
+    # Prompt the user for a valid file name
+    fileName = input("Enter a valid .cube file name: ")
+    fileName = validate_name(fileName)
+    
+    # Find the source file path
+    source_path = find_source_path(fileName, directory)
+    if source_path:
+        print(f"Source file found: {source_path}")
+        
+        # Generate a unique file name if needed 
+        unique_file_name = generate_unique_filename(fileName, directory)
+        destination_path = os.path.join(directory, unique_file_name)
+        
+        # Copy the file
+        copy_file(source_path, destination_path)
+    else:
+        print(f"Source file not found: {fileName}")
+
+
