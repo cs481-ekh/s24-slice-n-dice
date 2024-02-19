@@ -4,6 +4,4 @@ if [ ! -d .venv ]; then
     exit 1
 fi
 
-source .venv/bin/activate
-
-python -m pytest
+.venv/bin/python -m pytest
