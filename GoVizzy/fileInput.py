@@ -1,5 +1,10 @@
 import os
 import shutil
+import cube_viskit as cv
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+
 
 # Function to check if file is '.cube'
 def validate_name(fileName):
@@ -34,17 +39,42 @@ def generate_unique_filename(fileName, directory):
         
         # Increment the counter
         counter += 1
-# CHANGE THIS TO SEND TO PARSER?
+
 # Function to copy a file from source to destination
 def copy_file(source_path, destination_path):
     try:
         # Copy the file from source to destination
         shutil.copyfile(source_path, destination_path)
         print(f"File copied: {destination_path}")
+        return True
     except Exception as e:
         print(f"Error copying file: {e}")
+        return False
 
-# TODO: add to GoVizzy.pynb instead? using this to run 
+# Function to display cube
+def display_cube(cube):
+        # Extract the cube data
+        data3D = new_cube.data3D
+        
+        # Create a meshgrid for plotting
+        x, y, z = new_cube.grid[0], new_cube.grid[1], new_cube.grid[2]
+        
+        # Create a figure and 3D axes
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        
+        # Plot cube data
+        ax.scatter(x, y, z, c=data3D.flatten(), cmap='viridis')
+        
+        # Set axis labels
+        ax.set_xlabel('X')
+        ax.set_ylabel('Y')
+        ax.set_zlabel('Z')
+        
+        # Show plot
+        plt.show()
+
+
 if __name__ == "__main__":
     directory = "./"
     
@@ -62,7 +92,15 @@ if __name__ == "__main__":
         destination_path = os.path.join(directory, unique_file_name)
         
         # Copy the file
-        copy_file(source_path, destination_path)
+        # Copy the file
+        if copy_file(source_path, destination_path):
+            # Load the cube data
+            new_cube = cv.Cube()
+            new_cube.load_cube(destination_path)
+            
+            # Visualize cube data
+            display_cube(new_cube)
+     
     else:
         print(f"Source file not found: {fileName}")
 
