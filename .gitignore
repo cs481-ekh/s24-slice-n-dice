@@ -2,3 +2,5 @@
 **/.ipynb_checkpoints/
 .pytest_cache
 __pycache__/
+GoVizzy/cube/build/
+GoVizzy/cube/cube_viskit.egg-info/
