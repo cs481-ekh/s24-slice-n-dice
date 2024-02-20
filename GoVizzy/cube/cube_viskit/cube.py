@@ -78,54 +78,77 @@ class Cube:
         -----
         -> Nothing for the moment.
         """
+        try:
+            if fname:
+                self.fname = fname
+            assert self.fname, "No filename provided."
 
-        if fname:
-            self.fname = fname
-        assert self.fname, "No filename provided."
+            print(f"Loading {self.fname} ...")
 
-        print(f"Loading {self.fname} ...")
+            self.prefix = self.fname.split('.')[0]
+            self.units = units
 
-        self.prefix = self.fname.split('.')[0]
-        self.units = units
-
-        with open(self.fname, 'r') as f:
-            contents = f.readlines()
-
-        # -- Parse the header of the cube file
-        del contents[0:2]  # remove first 2 comment lines
-        tmp = contents[0].split()
-        num_atoms, origin = int(tmp[0]), np.array(list(map(float, tmp[1:])))
-        self.origin = origin
-        header = contents[1:num_atoms+4]
-        N1 = int(header[0].split()[0])
-        N2 = int(header[1].split()[0])
-        N3 = int(header[2].split()[0])
-        R1 = list(map(float, header[0].split()[1:4]))
-        R2 = list(map(float, header[1].split()[1:4]))
-        R3 = list(map(float, header[2].split()[1:4]))
-
+            with open(self.fname, 'r') as f:
+                contents = f.readlines()      
+        except Exception as e:
+            print("Unable to open file:")
+            print(e)
+            print("Exiting with code -1.")
+            exit(-1)
+            
+        try:     
+            # -- Parse the header of the cube file
+            del contents[0:2]  # remove first 2 comment lines
+            tmp = contents[0].split()
+            num_atoms, origin = int(tmp[0]), np.array(list(map(float, tmp[1:])))
+            self.origin = origin
+            header = contents[1:num_atoms+4]
+            N1 = int(header[0].split()[0])
+            N2 = int(header[1].split()[0])
+            N3 = int(header[2].split()[0])
+            R1 = list(map(float, header[0].split()[1:4]))
+            R2 = list(map(float, header[1].split()[1:4]))
+            R3 = list(map(float, header[2].split()[1:4]))
+        except Exception as e:
+            print("Error parsing header:")
+            print(e)            
+            print("Exiting with code -2.")
+            exit(-2)
+            
         # -- Get supercell dimensions
         basis = np.array([R1, R2, R3], dtype='d').T  # store vectors as columns
         scalars = np.array([N1, N2, N3], dtype='d')
         self.cell = basis * scalars  # broadcasting
-
-        # -- Create an ASE Atoms object
-        tmp = np.array([line.split() for line in header[3:]], dtype='d')
-        numbers = tmp[:, 0].astype(int)
-        positions = tmp[:, 2:] * Bohr
-        self.atoms = Atoms(
-            numbers=numbers, positions=positions, cell=self.cell.T)
+            
+        try:
+            # -- Create an ASE Atoms object
+            tmp = np.array([line.split() for line in header[3:]], dtype='d')
+            numbers = tmp[:, 0].astype(int)
+            positions = tmp[:, 2:] * Bohr
+            self.atoms = Atoms(
+                numbers=numbers, positions=positions, cell=self.cell.T)
+        except Exception as e:
+            print("Error parsing atoms:")
+            print(e)            
+            print("Exiting with code -3.")
+            exit(-3)
 
         # -- Construct the grid
         mesh = np.mgrid[0:N3, 0:N2, 0:N1]
         self.grid = np.einsum('ij,jklm->imlk', basis, mesh) + \
             origin[:, None, None, None]
 
-        # -- Isolate scalar field data
-        del contents[0:num_atoms+4]
-        data1D = np.array([float(val)
-                          for line in contents for val in line.split()])
-        self.data3D = data1D.reshape((N3, N2, N1), order='F')
+        try:
+            # -- Isolate scalar field data
+            del contents[0:num_atoms+4]
+            data1D = np.array([float(val)
+                            for line in contents for val in line.split()])
+            self.data3D = data1D.reshape((N3, N2, N1), order='F')
+        except Exception as e:
+            print("Error parsing the scalar field data:")
+            print(e)            
+            print("Exiting with code -4.")
+            exit(-4)
 
         print("Done.")
 
