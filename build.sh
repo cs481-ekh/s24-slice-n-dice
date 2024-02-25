@@ -9,7 +9,7 @@ fi
 python -m venv --system-site-packages .venv
 
 .venv/$binDir/pip3 install --user ./GoVizzy/cube
-.venv/$binDir/pip3 install --ignore-installed jupyter ipython_genutils ipyvolume pytest ase ipywidgets
+.venv/$binDir/pip3 install --ignore-installed jupyter jupyterlab_widgets ipython_genutils ipyvolume pytest ase ipywidgets
 
 if [ "$ACTIONS_ENVIRONMENT" = true ]; then
     echo "Running in Github action. Will not start JupyterLab."
