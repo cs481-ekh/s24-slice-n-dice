@@ -1,6 +1,6 @@
 # GoVizzy
 
-![Build and Test](https://github.com/cs481-ekh/s24-slice-n-dice/actions/workflows/ci.yml/badge.svg?branch=main)
+![CI](https://github.com/cs481-ekh/s24-slice-n-dice/actions/workflows/ci.yml/badge.svg?branch=main)
 
 ## Usage
 GoVizzy will work on any system with a supported version on Python and Pip installed.
