@@ -1,3 +1,7 @@
+"""
+Author:
+"""
+
 import os
 from cube_viskit import Cube
 import ipywidgets as widgets
@@ -18,6 +22,10 @@ class Visualizer:
 
     @staticmethod
     def __vertical_row(key: str, data: list[str]):
+        """
+        Creates a string in the format <tr><th>{key}</th><td>{data[i]}</td></tr>
+        for all entries in the list data.
+        """
         row = "<tr>"
         row = "<th>"+key+"</th>"
         for entry in data:
@@ -27,6 +35,10 @@ class Visualizer:
 
     @staticmethod
     def __horizontal_row(key: str, data: list[str]):
+        """
+        Creates a string in the format <tr><td>{data[i]}</td></tr> for all
+        entries in the list data. The key is unused.
+        """
         row = "<tr>"
         for entry in data:
             row += "<td>"+entry+"</td>"
@@ -35,6 +47,12 @@ class Visualizer:
 
     @staticmethod
     def __create_table_html(table_data: dict[str, list[str]], vertical: bool=False):
+        """
+        Creates an HTML <table></table> for all the keys in the table_data dict.
+        Creates the rows based on if the vertical bool is true or false using
+        the self.__horizontal_row() method if false otherwise
+        self.__vertical_row().
+        """
         create_row = Visualizer.__vertical_row if vertical else Visualizer.__horizontal_row
         table = "<table>"
         if not vertical:
@@ -46,20 +64,26 @@ class Visualizer:
         return table
 
     def display_cell_data(self):
+        """
+        Creates a tab widget returning the file name, prefix, scaling factor,
+        units, symbols, periodic boundary conditions, cell vectors, and origin
+        of the provided cell object.
+        """
+        cube = self.cube
         titles = ['Data', 'Cell']
         data = {
-            "File Name": [os.path.basename(self.cube.fname)],
-            "Prefix": [self.cube.prefix],
-            "Scaling Factor": [str(self.cube.scaling_factor)],
-            "Units": [self.cube.units],
+            "File Name": [os.path.basename(cube.fname)],
+            "Prefix": [cube.prefix],
+            "Scaling Factor": [str(cube.scaling_factor)],
+            "Units": [cube.units],
         }
         data_table = widgets.HTML(
             value=Visualizer.__create_table_html(data, vertical=True))
         cell = {
-            "Symbols": [str(self.cube.atoms.symbols)],
-            "Periodic Boundary Conditions": [str(self.cube.atoms.pbc)],
-            "Cell Vectors": [str(self.cube.cell)],
-            "Origin": [str(self.cube.origin)],
+            "Symbols": [str(cube.atoms.symbols)],
+            "Periodic Boundary Conditions": [str(cube.atoms.pbc)],
+            "Cell Vectors": [str(cube.cell)],
+            "Origin": [str(cube.origin)],
         }
         cell_table = widgets.HTML(
             value=Visualizer.__create_table_html(cell, vertical=True)
