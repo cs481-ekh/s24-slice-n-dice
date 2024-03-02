@@ -3,7 +3,7 @@
     Documentation for widget library: https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload
 '''
 from IPython.display import display
-from ipywidgets import Layout, Button, Box, Textarea, Label
+from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker
 
 # Layout for Input form
 form_item_layout = Layout(
@@ -12,13 +12,16 @@ form_item_layout = Layout(
     justify_content='space-between'
 )
 
+color = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
+
 # Input form items
 form_items = [
 
     Box([Label(value='Path to .cube file'), 
          Textarea()], layout=form_item_layout),
+    color,
     Button(description='Submit', layout=Layout(flex='1 1 0%', width='auto')),
-    
+
 ]
 
 # Create the input form box
@@ -29,4 +32,4 @@ form = Box(form_items, layout=Layout(
     align_items='stretch',
     width='50%'
 ))
-form
+form, color
