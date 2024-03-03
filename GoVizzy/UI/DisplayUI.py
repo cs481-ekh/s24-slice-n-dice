@@ -1,5 +1,6 @@
 from ipywidgets import AppLayout, Button, VBox, Layout, HBox, Output, RadioButtons
 import matplotlib.pyplot as plt
+import UI.plotting  # Import the necessary module containing display_cell_data
 
 # Define selected_option as a global variable with a default value
 selected_option = 'Static Image'
@@ -14,12 +15,11 @@ def display_cube(cube):
         if selected_option == 'Static Image':
             display_static_image(cube)
         elif selected_option == 'Option 2':
-            display_option_2(cube)
+            display_cell_data(cube)
         elif selected_option == 'Option 3':
             display_option_3(cube)
-
         else:
-            print("failing here")
+            print("Invalid option selected")
 
 def display_static_image(cube):
     # Extract the cube data
@@ -43,9 +43,12 @@ def display_static_image(cube):
     # Show plot
     plt.show()
 
-def display_option_2(cube):
-    # Function to display option 2
-    pass
+def display_cell_data(cube):
+    # Function to display cell data directly in the additional widget box
+    with additional_box:
+        additional_box.clear_output(wait=True)
+        visualizer = UI.plotting.Visualizer(cube)
+        visualizer.display_cell_data()
 
 def display_option_3(cube):
     # Function to display option 3
@@ -53,41 +56,38 @@ def display_option_3(cube):
 
 def handle_radio_button_change(change):
     global selected_option  # Declare selected_option as a global variable
-    
     selected_option = change['new']
     display_cube(cube_data)
-    
-def display_app(large_box):
+
+def display_app(large_box, additional_box):
     # Define radio buttons
     options = ['Static Image', 'Option 2', 'Option 3']
     radio_buttons = RadioButtons(options=options, index=0)  # Setting index to 0 for default selection
-    
-    # Attach callback function to handle changes
     radio_buttons.observe(handle_radio_button_change, names='value')
     
     # Create a VBox for radio buttons
     radio_buttons_container = VBox([radio_buttons])
     
-    # Create HBox for large box and radio buttons container
-    boxes_hbox = HBox([large_box, radio_buttons_container])
+    # Create VBox for additional box and radio buttons container
+    vbox_radio_additional = VBox([radio_buttons_container, additional_box])
+    
+    # Create HBox for large box and VBox containing radio buttons and additional box
+    hbox_large_radio_additional = HBox([large_box, vbox_radio_additional])
     
     # Define other buttons
-    slim_bar = Button(description="Slim Bar", 
-                      layout=Layout(width="50%", height="20px"))
+    slim_bar = Button(description="Slim Bar", layout=Layout(width="50%", height="20px"))
     
     # Create AppLayout
-    app_layout = AppLayout(header=None,
-                           left_sidebar=None,
-                           center=VBox([boxes_hbox]),  # Remove output widget from center
-                           right_sidebar=None,
-                           footer=slim_bar,
-                           pane_heights=['20px', 1, '20px'])
+    app_layout = AppLayout(header=None, left_sidebar=None, center=hbox_large_radio_additional,
+                           footer=slim_bar, pane_heights=['20px', 1, '20px'])
     
     # Display the layout
     display(app_layout)
 
 # Create a large_box
 large_box = Output(layout=Layout(width="70%", height="300px"))
+# Create an additional_box
+additional_box = Output(layout=Layout(width="60%", height="300px"))
 
 # Call display_app to display the app layout
-display_app(large_box)
+display_app(large_box, additional_box)

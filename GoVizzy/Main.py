@@ -16,6 +16,8 @@ submit_button = widgets.Button(description='Submit')
 # Define the app layout
 
 large_box = Output(layout=Layout(width="70%", height="300px"))
+
+additional_box = Output(layout=Layout(width="30%", height="300px"))
 # Function to handle submit button click
 def submit_button_clicked(b):
     directory = "./"
@@ -31,7 +33,8 @@ def submit_button_clicked(b):
                 new_cube = cv.Cube()
                 new_cube.load_cube(destination_path)
                 UI.DisplayUI.display_cube(new_cube)
-                UI.DisplayUI.display_app(large_box)  # Display the app layout
+                UI.DisplayUI.display_app(large_box,additional_box) 
+                UI.DisplayUI.display_cell_data(new_cube)
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
         else:
