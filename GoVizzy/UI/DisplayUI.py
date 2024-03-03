@@ -1,12 +1,22 @@
-from ipywidgets import AppLayout, Button, VBox, Layout, HBox, Output, RadioButtons
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout
+import ipyvolume as ipv
 import matplotlib.pyplot as plt
 import UI.plotting  # Import the necessary module containing display_cell_data
 
 # Define selected_option as a global variable with a default value
 selected_option = 'Static Image'
 
+# Define dropdown options
+options = ['Static Image', 'Grid Points', 'Volumetric']
+
+# Create the dropdown menu
+dropdown = Dropdown(options=options, value=options[0], description='Options:')
+
+# Define large_box and additional_box
+large_box = Output(layout=Layout(width="70%", height="500px"))
+additional_box = Output(layout=Layout(width="30%", height="300px"))
+
 def display_cube(cube):
-    global selected_option 
     
     with large_box:  # Capture output within large_box
         # Clear previous content
@@ -14,10 +24,10 @@ def display_cube(cube):
         
         if selected_option == 'Static Image':
             display_static_image(cube)
-        elif selected_option == 'Option 2':
+        elif selected_option == 'Grid Points':
             display_cell_data(cube)
-        elif selected_option == 'Option 3':
-            display_option_3(cube)
+        elif selected_option == 'Volumetric':
+            display_ipyvolume_plot(cube)
         else:
             print("Invalid option selected")
 
@@ -50,44 +60,46 @@ def display_cell_data(cube):
         visualizer = UI.plotting.Visualizer(cube)
         visualizer.display_cell_data()
 
-def display_option_3(cube):
-    # Function to display option 3
-    pass
+def display_ipyvolume_plot(cube):
+    data3D = cube.data3D
+    ipv.pylab.volshow(data3D, lighting=False, data_min=None, data_max=None, max_shape=256, tf=None, stereo=False, ambient_coefficient=0.5, diffuse_coefficient=0.8, specular_coefficient=0.5, specular_exponent=5, downscale=1, level=[0.1, 0.5, 0.9], opacity=[0.01, 0.05, 0.1], level_width=0.1, controls=True, max_opacity=0.2, memorder='C', extent=None, description=None)
+    # Embed the plot in the large_box widget
+    with large_box:
+        ipv.show()
 
-def handle_radio_button_change(change):
-    global selected_option  # Declare selected_option as a global variable
-    selected_option = change['new']
-    display_cube(cube_data)
+def handle_dropdown_change(change, cube):
+    global selected_option
+    selected_option = change.new
+    
+    # Clear the output
+    with large_box:
+        large_box.clear_output(wait=True)
+    
+    # Display the cube based on the selected option
+    display_cube(cube)
 
 def display_app(large_box, additional_box):
-    # Define radio buttons
-    options = ['Static Image', 'Option 2', 'Option 3']
-    radio_buttons = RadioButtons(options=options, index=0)  # Setting index to 0 for default selection
-    radio_buttons.observe(handle_radio_button_change, names='value')
+    # Attach the dropdown change handler
+    dropdown.observe(handle_dropdown_change, names='value')
     
-    # Create a VBox for radio buttons
-    radio_buttons_container = VBox([radio_buttons])
+    # Create a VBox for dropdown
+    dropdown_container = VBox([dropdown])
     
-    # Create VBox for additional box and radio buttons container
-    vbox_radio_additional = VBox([radio_buttons_container, additional_box])
+    # Create VBox for additional box and dropdown container
+    vbox_dropdown_additional = VBox([dropdown, additional_box])
     
-    # Create HBox for large box and VBox containing radio buttons and additional box
-    hbox_large_radio_additional = HBox([large_box, vbox_radio_additional])
+    # Create HBox for large box and VBox containing dropdown and additional box
+    hbox_large_dropdown_additional = HBox([large_box, vbox_dropdown_additional])
     
     # Define other buttons
-    slim_bar = Button(description="Slim Bar", layout=Layout(width="50%", height="20px"))
+    slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
     
     # Create AppLayout
-    app_layout = AppLayout(header=None, left_sidebar=None, center=hbox_large_radio_additional,
+    app_layout = AppLayout(header=None, left_sidebar=None, center=hbox_large_dropdown_additional,
                            footer=slim_bar, pane_heights=['20px', 1, '20px'])
     
     # Display the layout
     display(app_layout)
 
-# Create a large_box
-large_box = Output(layout=Layout(width="70%", height="300px"))
-# Create an additional_box
-additional_box = Output(layout=Layout(width="60%", height="300px"))
-
-# Call display_app to display the app layout
+# Call the display_app function
 display_app(large_box, additional_box)

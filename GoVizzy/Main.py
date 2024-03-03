@@ -4,9 +4,9 @@ import ipywidgets as widgets
 import os
 import cube_viskit as cv
 import matplotlib.pyplot as plt
-from ipywidgets import AppLayout, Button, VBox, Layout, HBox, Output
+from ipywidgets import AppLayout, Button, VBox, Layout, HBox, Output, Dropdown
 from IPython.display import display
-
+from UI.DisplayUI import display_cube
 # Define a text input widget
 file_input = widgets.Text(description='File Name:')
 
@@ -14,12 +14,16 @@ file_input = widgets.Text(description='File Name:')
 submit_button = widgets.Button(description='Submit')
 
 # Define the app layout
+options = ['Static Image', 'Grid Points', 'Volumetric']
 
-large_box = Output(layout=Layout(width="70%", height="300px"))
+# Create the dropdown menu
+
+
+large_box = Output(layout=Layout(width="70%", height="500px"))
 
 additional_box = Output(layout=Layout(width="30%", height="300px"))
-# Function to handle submit button click
-def submit_button_clicked(b):
+
+def handle_submit_button_clicked(b):
     directory = "./"
     fileName = file_input.value.strip()
     if fileName.endswith('.cube'):
@@ -33,17 +37,20 @@ def submit_button_clicked(b):
                 new_cube = cv.Cube()
                 new_cube.load_cube(destination_path)
                 UI.DisplayUI.display_cube(new_cube)
-                UI.DisplayUI.display_app(large_box,additional_box) 
+                UI.DisplayUI.display_app(large_box, additional_box, new_cube) 
                 UI.DisplayUI.display_cell_data(new_cube)
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
-        else:
-            print(f"Source file not found: {fileName}")
+ # Pass the cube object to the dropdown change handler
+                dropdown.observe(lambda change: UI.DisplayUI.handle_dropdown_change(change, new_cube), names='value')
     else:
         print("Enter a valid .cube file name")
 
 # Attach button click handler
-submit_button.on_click(submit_button_clicked)
+submit_button.on_click(handle_submit_button_clicked)
+
 
 # Display the widgets
-display(widgets.VBox([file_input, submit_button]))
+display(VBox([file_input, submit_button]))
+
+# Display the widgets

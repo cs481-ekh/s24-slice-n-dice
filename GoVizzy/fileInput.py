@@ -45,25 +45,3 @@ def copy_file(source_path, destination_path):
         print(f"Error copying file: {e}")
         return False
 
-# Function to display cube
-def display_cube(cube):
-        # Extract the cube data
-        data3D = cube.data3D
-        
-        # Create a meshgrid for plotting
-        x, y, z = cube.grid[0], cube.grid[1], cube.grid[2]
-        
-        # Create a figure and 3D axes
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-        
-        # Plot cube data
-        ax.scatter(x, y, z, c=data3D.flatten(), cmap='viridis')
-        
-        # Set axis labels
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-        
-        # Show plot
-        plt.show()
