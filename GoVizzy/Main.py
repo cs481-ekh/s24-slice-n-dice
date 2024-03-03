@@ -17,13 +17,8 @@ submit_button = widgets.Button(description='Submit')
 # Define the app layout
 options = ['Static Image', 'Grid Points', 'Volumetric']
 
-# Create the dropdown menu
-
-
 display_box = Output(layout=Layout(width="70%", height="100px"))
 additional_box = Output(layout=Layout(width="30%", height="300px"))
-
-
 
 def handle_submit_button_clicked(b):
     directory = "./"

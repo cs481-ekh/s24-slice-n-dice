@@ -1,4 +1,5 @@
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout
+import ipywidgets as widgets
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 import UI.plotting  
@@ -8,13 +9,21 @@ selected_option = 'Volumetric'
 options = ['Static Image', 'Grid Points', 'Volumetric']
 dropdown = Dropdown(options=options, value=options[0], description='Options:')
 large_box = Output(layout=Layout(width="70%", height="100px"))
-additional_box = Output(layout=Layout(width="40%", height="300px"))
+additional_box = Output(layout=Layout(width="200px", height="300px"))
+slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
+slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
 
+newCube = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
+newCube_descr = widgets.Label(value="New Cube", layout=Layout(margin='5px 0 0 5px'))
 # Displays logo and hides the app output
 def hide_ui():
   
     additional_box.layout.visibility = 'hidden'
     dropdown.layout.visibility = 'hidden'
+    slice_picker.layout.visibility = 'hidden'
+    slice_picker_descr.layout.visibility = 'hidden'
+    newCube.layout.visibility = 'hidden'
+    newCube_descr.layout.visibility = 'hidden'
     with large_box:
         # Clear previous content
         large_box.clear_output(wait=True)
@@ -32,6 +41,10 @@ def show_ui():
     large_box.layout.visibility = 'visible'
     additional_box.layout.visibility = 'visible'
     dropdown.layout.visibility = 'visible'
+    slice_picker.layout.visibility = 'visible'
+    slice_picker_descr.layout.visibility = 'visible'
+    newCube.layout.visibility = 'visible'
+    newCube_descr.layout.visibility = 'visible'
 
 def display_cube(cube):
     
@@ -104,11 +117,15 @@ def display_app(large_box, additional_box):
     
     
     # Create VBox for additional box and dropdown container
-    menu_options = VBox([dropdown, additional_box])
+   
+
+    # Combine the Output widgets with their descriptions
+    slice_box = VBox([slice_picker_descr, slice_picker])
+    newCube_box = VBox([newCube_descr, newCube])
     
-    # Create HBox for large box and VBox containing dropdown and additional box
+    menu_options = VBox([dropdown, slice_box, additional_box, newCube_box])
     display_box = HBox([large_box, menu_options])
-    
+  
     # Define other buttons
     #slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
     large_box = Output(layout=Layout(width="70%", height="500px", overflow='visible'))
