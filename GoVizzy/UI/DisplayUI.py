@@ -1,20 +1,37 @@
 from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
-import UI.plotting  # Import the necessary module containing display_cell_data
+import UI.plotting  
 
-# Define selected_option as a global variable with a default value
-selected_option = 'Static Image'
-
-# Define dropdown options
+# Define globals
+selected_option = 'Volumetric'
 options = ['Static Image', 'Grid Points', 'Volumetric']
-
-# Create the dropdown menu
 dropdown = Dropdown(options=options, value=options[0], description='Options:')
+large_box = Output(layout=Layout(width="70%", height="100px"))
+additional_box = Output(layout=Layout(width="40%", height="300px"))
 
-# Define large_box and additional_box
-large_box = Output(layout=Layout(width="70%", height="500px"))
-additional_box = Output(layout=Layout(width="30%", height="300px"))
+# Displays logo and hides the app output
+def hide_ui():
+  
+    additional_box.layout.visibility = 'hidden'
+    dropdown.layout.visibility = 'hidden'
+    with large_box:
+        # Clear previous content
+        large_box.clear_output(wait=True)
+        image_path = './gv.png'  
+        image_data = plt.imread(image_path)
+        plt.figure()
+        plt.imshow(image_data)
+        plt.axis('off')  
+        plt.show()
+     
+
+def show_ui():
+    large_box = Output(layout=Layout(width="70%", height="300px"))
+
+    large_box.layout.visibility = 'visible'
+    additional_box.layout.visibility = 'visible'
+    dropdown.layout.visibility = 'visible'
 
 def display_cube(cube):
     
@@ -62,8 +79,8 @@ def display_cell_data(cube):
 
 def display_ipyvolume_plot(cube):
     data3D = cube.data3D
-    ipv.pylab.volshow(data3D, lighting=False, data_min=None, data_max=None, max_shape=256, tf=None, stereo=False, ambient_coefficient=0.5, diffuse_coefficient=0.8, specular_coefficient=0.5, specular_exponent=5, downscale=1, level=[0.1, 0.5, 0.9], opacity=[0.01, 0.05, 0.1], level_width=0.1, controls=True, max_opacity=0.2, memorder='C', extent=None, description=None)
-    # Embed the plot in the large_box widget
+    ipv.figure()
+    ipv.pylab.volshow(data3D)
     with large_box:
         ipv.show()
 
@@ -85,18 +102,19 @@ def display_app(large_box, additional_box):
     # Create a VBox for dropdown
     dropdown_container = VBox([dropdown])
     
+    
     # Create VBox for additional box and dropdown container
-    vbox_dropdown_additional = VBox([dropdown, additional_box])
+    menu_options = VBox([dropdown, additional_box])
     
     # Create HBox for large box and VBox containing dropdown and additional box
-    hbox_large_dropdown_additional = HBox([large_box, vbox_dropdown_additional])
+    display_box = HBox([large_box, menu_options])
     
     # Define other buttons
-    slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
-    
+    #slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
+    large_box = Output(layout=Layout(width="70%", height="500px", overflow='visible'))
     # Create AppLayout
-    app_layout = AppLayout(header=None, left_sidebar=None, center=hbox_large_dropdown_additional,
-                           footer=slim_bar, pane_heights=['20px', 1, '20px'])
+    app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,
+                           footer=None, pane_heights=['20px', 1, '20px'])
     
     # Display the layout
     display(app_layout)

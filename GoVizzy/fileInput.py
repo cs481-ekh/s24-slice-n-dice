@@ -5,8 +5,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-
-    
 # Function to find the source file path based on the file name
 def find_source_path(fileName, directory):
    

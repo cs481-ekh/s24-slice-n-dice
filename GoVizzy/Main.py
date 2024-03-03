@@ -1,12 +1,13 @@
 import fileInput
-import UI.DisplayUI
 import ipywidgets as widgets
 import os
 import cube_viskit as cv
 import matplotlib.pyplot as plt
-from ipywidgets import AppLayout, Button, VBox, Layout, HBox, Output, Dropdown
+from ipywidgets import AppLayout, Button, HBox, Layout, HBox, Output, Dropdown
 from IPython.display import display
-from UI.DisplayUI import display_cube
+from UI import DisplayUI
+
+
 # Define a text input widget
 file_input = widgets.Text(description='File Name:')
 
@@ -19,9 +20,10 @@ options = ['Static Image', 'Grid Points', 'Volumetric']
 # Create the dropdown menu
 
 
-large_box = Output(layout=Layout(width="70%", height="500px"))
-
+display_box = Output(layout=Layout(width="70%", height="100px"))
 additional_box = Output(layout=Layout(width="30%", height="300px"))
+
+
 
 def handle_submit_button_clicked(b):
     directory = "./"
@@ -36,21 +38,35 @@ def handle_submit_button_clicked(b):
             if success:
                 new_cube = cv.Cube()
                 new_cube.load_cube(destination_path)
-                UI.DisplayUI.display_cube(new_cube)
-                UI.DisplayUI.display_app(large_box, additional_box, new_cube) 
-                UI.DisplayUI.display_cell_data(new_cube)
+                DisplayUI.show_ui()
+                DisplayUI.display_cube(new_cube)
+                DisplayUI.display_app(display_box, additional_box) 
+                DisplayUI.display_cell_data(new_cube)
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
- # Pass the cube object to the dropdown change handler
-                dropdown.observe(lambda change: UI.DisplayUI.handle_dropdown_change(change, new_cube), names='value')
+              
+                #dropdown.observe(lambda change: UI.DisplayUI.handle_dropdown_change(change, new_cube), names='value')
+        else:
+            print(f"Source file not found: {fileName}")
     else:
         print("Enter a valid .cube file name")
 
-# Attach button click handler
-submit_button.on_click(handle_submit_button_clicked)
+def main():
+    global file_input, submit_button
+    DisplayUI.hide_ui()
+    # Define a text input widget
+    file_input = widgets.Text(description='File Name:')
 
+    # Define a submit button widget
+    submit_button = widgets.Button(description='Submit')
 
-# Display the widgets
-display(VBox([file_input, submit_button]))
+    # Attach button click handler
+    submit_button.on_click(handle_submit_button_clicked)
 
-# Display the widgets
+    # Display the widgets
+    display(HBox([file_input, submit_button]))
+
+# Call the main function
+if __name__ == "__main__":
+    main()
+
