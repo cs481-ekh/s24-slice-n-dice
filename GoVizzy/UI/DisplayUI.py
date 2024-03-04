@@ -7,8 +7,8 @@ import UI.plotting
 # Define globals
 selected_option = 'Volumetric'
 options = ['Static Image', 'Grid Points', 'Volumetric']
-dropdown = Dropdown(options=options, value=options[0], description='Options:')
-large_box = Output(layout=Layout(width="70%", height="100px"))
+dropdown = Dropdown(options=options, value=options[2], description='Options:')
+large_box = Output(layout=Layout(width="75%", height="100px"))
 additional_box = Output(layout=Layout(width="200px", height="300px"))
 slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
@@ -97,20 +97,10 @@ def display_ipyvolume_plot(cube):
     with large_box:
         ipv.show()
 
-def handle_dropdown_change(change, cube):
-    global selected_option
-    selected_option = change.new
-    
-    # Clear the output
-    with large_box:
-        large_box.clear_output(wait=True)
-    
-    # Display the cube based on the selected option
-    display_cube(cube)
 
 def display_app(large_box, additional_box):
     # Attach the dropdown change handler
-    dropdown.observe(handle_dropdown_change, names='value')
+   
     
     # Create a VBox for dropdown
     dropdown_container = VBox([dropdown])
@@ -132,7 +122,7 @@ def display_app(large_box, additional_box):
 
     # Define other buttons
     #slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
-    large_box = Output(layout=Layout(width="70%", height="500px"))
+    large_box = Output(layout=Layout(width="75%", height="500px"))
     # Create AppLayout
     app_layout = AppLayout(header=slim_box, left_sidebar=None, center=display_box,
                            footer=None, pane_heights=['20px', 1, '20px'])
@@ -142,3 +132,20 @@ def display_app(large_box, additional_box):
 
 # Call the display_app function
 display_app(large_box, additional_box)
+
+
+def handle_dropdown_change(change, cube):
+    global selected_option
+    selected_option = change.new
+    
+    # Clear the output
+    with large_box:
+        large_box.clear_output(wait=True)
+    
+    # Display the cube based on the selected option
+    display_cube(cube)
+    
+    # Update the app layout
+   
+
+    dropdown.observe(handle_dropdown_change, names='value')

@@ -39,8 +39,12 @@ def handle_submit_button_clicked(b):
                 DisplayUI.display_cell_data(new_cube)
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
-              
-                #dropdown.observe(lambda change: UI.DisplayUI.handle_dropdown_change(change, new_cube), names='value')
+
+            DisplayUI.dropdown.observe(
+                    lambda change: DisplayUI.handle_dropdown_change(change, new_cube),
+                    names='value'
+                )
+                
         else:
             print(f"Source file not found: {fileName}")
     else:
