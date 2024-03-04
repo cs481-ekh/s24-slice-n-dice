@@ -114,23 +114,27 @@ def display_app(large_box, additional_box):
     
     # Create a VBox for dropdown
     dropdown_container = VBox([dropdown])
-    
-    
-    # Create VBox for additional box and dropdown container
-   
-
     # Combine the Output widgets with their descriptions
     slice_box = VBox([slice_picker_descr, slice_picker])
     newCube_box = VBox([newCube_descr, newCube])
     
     menu_options = VBox([dropdown, slice_box, additional_box, newCube_box])
     display_box = HBox([large_box, menu_options])
-  
+    
+    exit_button = widgets.Button(description='[X]', button_style='danger')
+    exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
+
+    slim_box = HBox([ exit_button])
+    slim_box.layout.width = '100%'
+    slim_box.layout.height = '20px'
+    
+    slim_box.layout.justify_content = 'space-between'
+
     # Define other buttons
     #slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
-    large_box = Output(layout=Layout(width="70%", height="500px", overflow='visible'))
+    large_box = Output(layout=Layout(width="70%", height="500px"))
     # Create AppLayout
-    app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,
+    app_layout = AppLayout(header=slim_box, left_sidebar=None, center=display_box,
                            footer=None, pane_heights=['20px', 1, '20px'])
     
     # Display the layout
