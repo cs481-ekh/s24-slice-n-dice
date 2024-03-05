@@ -5,14 +5,6 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import numpy as np
 
-
-# Function to check if file is '.cube'
-def validate_name(fileName):
-    while not fileName.endswith('.cube'):
-        print("Enter a valid .cube file name: ")
-        fileName = input()
-    return fileName
-        
 # Function to find the source file path based on the file name
 def find_source_path(fileName, directory):
    
@@ -50,58 +42,4 @@ def copy_file(source_path, destination_path):
     except Exception as e:
         print(f"Error copying file: {e}")
         return False
-
-# Function to display cube
-def display_cube(cube):
-        # Extract the cube data
-        data3D = new_cube.data3D
-        
-        # Create a meshgrid for plotting
-        x, y, z = new_cube.grid[0], new_cube.grid[1], new_cube.grid[2]
-        
-        # Create a figure and 3D axes
-        fig = plt.figure()
-        ax = fig.add_subplot(111, projection='3d')
-        
-        # Plot cube data
-        ax.scatter(x, y, z, c=data3D.flatten(), cmap='viridis')
-        
-        # Set axis labels
-        ax.set_xlabel('X')
-        ax.set_ylabel('Y')
-        ax.set_zlabel('Z')
-        
-        # Show plot
-        plt.show()
-
-
-if __name__ == "__main__":
-    directory = "./"
-    
-    # Prompt the user for a valid file name
-    fileName = input("Enter a valid .cube file name: ")
-    fileName = validate_name(fileName)
-    
-    # Find the source file path
-    source_path = find_source_path(fileName, directory)
-    if source_path:
-        print(f"Source file found: {source_path}")
-        
-        # Generate a unique file name if needed 
-        unique_file_name = generate_unique_filename(fileName, directory)
-        destination_path = os.path.join(directory, unique_file_name)
-        
-        # Copy the file
-        # Copy the file
-        if copy_file(source_path, destination_path):
-            # Load the cube data
-            new_cube = cv.Cube()
-            new_cube.load_cube(destination_path)
-            
-            # Visualize cube data
-            display_cube(new_cube)
-     
-    else:
-        print(f"Source file not found: {fileName}")
-
 
