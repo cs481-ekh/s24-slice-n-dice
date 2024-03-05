@@ -2,7 +2,7 @@ import ipywidgets as widgets
 from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
-import UI.plotting  
+import GoVizzy.plotting  
 
 # Define globals
 selected_option = 'Volumetric'
@@ -87,15 +87,17 @@ def display_cell_data(cube):
     # Function to display cell data directly in the additional widget box
     with additional_box:
         additional_box.clear_output(wait=True)
-        visualizer = UI.plotting.Visualizer(cube)
+        visualizer = GoVizzy.plotting.Visualizer(cube)
         visualizer.display_cell_data()
 
 def display_ipyvolume_plot(cube):
-    data3D = cube.data3D
-    ipv.figure()
-    ipv.pylab.volshow(data3D)
+    #data3D = cube.data3D
+    #ipv.figure()
+    #ipv.pylab.volshow(data3D)
     with large_box:
-        ipv.show()
+        #ipv.show()
+        visualizer = GoVizzy.plotting.Visualizer(cube)
+        visualizer.display_cell()
 
 
 def display_app(large_box, additional_box):

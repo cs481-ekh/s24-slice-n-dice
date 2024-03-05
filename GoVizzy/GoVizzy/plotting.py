@@ -1,4 +1,5 @@
 import os
+from widgets import color
 from cube_viskit import Cube
 import ipywidgets as widgets
 import ipyvolume as ipv
@@ -95,5 +96,7 @@ class Visualizer:
         """
         cube = self.cube
         ipv.figure()
-        ipv.pylab.volshow(cube.data3D)
+        transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=True)
+        ipv.style.background_color(color.value)
+        ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=True)
         ipv.show()
