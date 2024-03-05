@@ -1,10 +1,7 @@
-"""
-Author:
-"""
-
 import os
 from cube_viskit import Cube
 import ipywidgets as widgets
+import ipyvolume as ipv
 from IPython.display import display
 
 class Visualizer:
@@ -91,3 +88,12 @@ class Visualizer:
         children = [data_table, cell_table]
         tab = widgets.Tab(children=children, titles=titles)
         display(tab)
+
+    def display_cell(self):
+        """
+        Displays the cube's data3D with the volshow() method.
+        """
+        cube = self.cube
+        ipv.figure()
+        ipv.pylab.volshow(cube.data3D)
+        ipv.show()
