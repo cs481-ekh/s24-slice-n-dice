@@ -3,51 +3,11 @@ from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Lay
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 import GoVizzy.plotting  
+from UI import windowManager
 
-# Define globals
-selected_option = 'Volumetric'
-options = ['Static Image', 'Grid Points', 'Volumetric']
-dropdown = Dropdown(options=options, value=options[2], description='Options:')
-large_box = Output(layout=Layout(width="75%", height="100px"))
 additional_box = Output(layout=Layout(width="200px", height="300px"))
-slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
-slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
-
-newCube = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
-newCube_descr = widgets.Label(value="New Cube", layout=Layout(margin='5px 0 0 5px'))
-# Displays logo and hides the app output
-def hide_ui():
-  
-    additional_box.layout.visibility = 'hidden'
-    dropdown.layout.visibility = 'hidden'
-    slice_picker.layout.visibility = 'hidden'
-    slice_picker_descr.layout.visibility = 'hidden'
-    newCube.layout.visibility = 'hidden'
-    newCube_descr.layout.visibility = 'hidden'
-    with large_box:
-        # Clear previous content
-        large_box.clear_output(wait=True)
-        image_path = './gv.png'  
-        image_data = plt.imread(image_path)
-        plt.figure()
-        plt.imshow(image_data)
-        plt.axis('off')  
-        plt.show()
-     
-
-def show_ui():
-    large_box = Output(layout=Layout(width="70%", height="300px"))
-
-    large_box.layout.visibility = 'visible'
-    additional_box.layout.visibility = 'visible'
-    dropdown.layout.visibility = 'visible'
-    slice_picker.layout.visibility = 'visible'
-    slice_picker_descr.layout.visibility = 'visible'
-    newCube.layout.visibility = 'visible'
-    newCube_descr.layout.visibility = 'visible'
-
 def display_cube(cube):
-    
+    large_box = Output(layout=Layout(width="50%", height="50%"))
     with large_box:  # Capture output within large_box
         # Clear previous content
         large_box.clear_output(wait=True)
@@ -89,6 +49,7 @@ def display_cell_data(cube):
         additional_box.clear_output(wait=True)
         visualizer = GoVizzy.plotting.Visualizer(cube)
         visualizer.display_cell_data()
+    
 
 def display_ipyvolume_plot(cube):
     #data3D = cube.data3D
@@ -100,40 +61,37 @@ def display_ipyvolume_plot(cube):
         visualizer.display_cell()
 
 
-def display_app(large_box, additional_box):
+def display_app():
     # Attach the dropdown change handler
-   
-    
+    app_layout = windowManager.LayoutManager(None,None,None,None)
+    options = ['Static Image', 'Grid Points', 'Volumetric']
+    dropdown = Dropdown(options=options, value=options[2], description='Options:')
+    slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
+    slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
+    newCube = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
+    newCube_descr = widgets.Label(value="New Cube", layout=Layout(margin='5px 0 0 5px'))
     # Create a VBox for dropdown
     dropdown_container = VBox([dropdown])
     # Combine the Output widgets with their descriptions
     slice_box = VBox([slice_picker_descr, slice_picker])
     newCube_box = VBox([newCube_descr, newCube])
-    
+    center_widget = Output(layout=Layout(width="75%", height="500px"))
     menu_options = VBox([dropdown, slice_box, additional_box, newCube_box])
-    display_box = HBox([large_box, menu_options])
+    #display_box = HBox([large_box, menu_options])
     
-    exit_button = widgets.Button(description='[X]', button_style='danger')
-    exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
-
-    slim_box = HBox([ exit_button])
-    slim_box.layout.width = '100%'
-    slim_box.layout.height = '20px'
     
-    slim_box.layout.justify_content = 'space-between'
 
     # Define other buttons
-    #slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
-    large_box = Output(layout=Layout(width="75%", height="500px"))
+    slim_bar = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(width="50%", height="20px"))
+    
     # Create AppLayout
-    app_layout = AppLayout(header=slim_box, left_sidebar=None, center=display_box,
-                           footer=None, pane_heights=['20px', 1, '20px'])
+    app_layout.update_layout(None, center_widget, menu_options, slim_bar)
     
     # Display the layout
-    display(app_layout)
+    display(app_layout.initial_layout)
 
 # Call the display_app function
-display_app(large_box, additional_box)
+#display_app(large_box, additional_box)
 
 
 def handle_dropdown_change(change, cube):
