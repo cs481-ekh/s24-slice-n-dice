@@ -148,7 +148,10 @@ def clear_all_outputs():
     slice_picker.layout.visibility = 'hidden'
     slice_picker_descr.layout.visibility = 'hidden'
     dropdown.layout.visibility = 'hidden'
-  
+    with large_box:
+        exit_message = widgets.Textarea(value='Please restart the terminal and "%run Main.py" to continue use', disabled=True)
+   
+        display(exit_message)
     
 def handle_dropdown_change(change, cube):
     global selected_option

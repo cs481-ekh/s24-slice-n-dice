@@ -63,10 +63,7 @@ def handle_exit_click(b):
     file_input.layout.visibility = 'hidden'  # Hide the file input widget
     submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
     DisplayUI.clear_all_outputs()
-    exit_message = widgets.Textarea(value='Please restart the terminal.', disabled=True,
-                                     layout=Layout(width="100%", height="200px"))
-   
-    display(exit_message)  
+    
     
 def handle_newCube_click(b):
     DisplayUI.show_menu()
