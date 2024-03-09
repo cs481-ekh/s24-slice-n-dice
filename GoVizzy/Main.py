@@ -52,6 +52,7 @@ def handle_submit_button_clicked(b):
 
 def main():
     global file_input, submit_button
+    
     DisplayUI.hide_ui()
     # Define a text input widget
     file_input = widgets.Text(description='File Name:')
@@ -63,7 +64,11 @@ def main():
     submit_button.on_click(handle_submit_button_clicked)
 
     # Display the widgets
-    display(HBox([file_input, submit_button]))
+    file_input_button = HBox((file_input, submit_button), layout=Layout(justify_content='center'))
+
+
+    
+    display(file_input_button)
 
 # Call the main function
 if __name__ == "__main__":

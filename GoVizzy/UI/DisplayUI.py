@@ -27,6 +27,8 @@ def hide_ui():
     with large_box:
         # Clear previous content
         large_box.clear_output(wait=True)
+        large_box.layout = Layout(width="100%", height="70%", justify_content="center", margin="0 0 5% 40%")
+
         image_path = './gv.png'  
         image_data = plt.imread(image_path)
         plt.figure()
@@ -36,8 +38,7 @@ def hide_ui():
      
 
 def show_ui():
-    large_box = Output(layout=Layout(width="70%", height="300px"))
-
+    
     large_box.layout.visibility = 'visible'
     additional_box.layout.visibility = 'visible'
     dropdown.layout.visibility = 'visible'
@@ -50,7 +51,9 @@ def display_cube(cube):
     
     with large_box:  # Capture output within large_box
         # Clear previous content
-        large_box.clear_output(wait=True)
+        large_box.clear_output()
+        large_box.layout = Layout(width="85%", height="70%")
+
         
         if selected_option == 'Static Image':
             display_static_image(cube)
