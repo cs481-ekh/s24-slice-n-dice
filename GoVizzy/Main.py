@@ -3,7 +3,7 @@ import ipywidgets as widgets
 import os
 import cube_viskit as cv
 import matplotlib.pyplot as plt
-from ipywidgets import AppLayout, Button, HBox, Layout, HBox, Output, Dropdown
+from ipywidgets import AppLayout, Button, HBox, Layout, HBox, Output, Dropdown, Textarea
 from IPython.display import display, clear_output
 from UI import DisplayUI
 import signal
@@ -63,11 +63,11 @@ def handle_exit_click(b):
     file_input.layout.visibility = 'hidden'  # Hide the file input widget
     submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
     DisplayUI.clear_all_outputs()
-
     exit_message = widgets.Textarea(value='Please restart the terminal.', disabled=True,
-                              layout=Layout(width="50%", height="100px"))
-    display(exit_message)
-
+                                     layout=Layout(width="100%", height="200px"))
+   
+    display(exit_message)  
+    
 def handle_newCube_click(b):
     DisplayUI.show_menu()
     file_input.layout.visibility = 'visible'

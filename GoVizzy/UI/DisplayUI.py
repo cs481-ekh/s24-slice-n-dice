@@ -148,7 +148,7 @@ def clear_all_outputs():
     slice_picker.layout.visibility = 'hidden'
     slice_picker_descr.layout.visibility = 'hidden'
     dropdown.layout.visibility = 'hidden'
-   
+  
     
 def handle_dropdown_change(change, cube):
     global selected_option
