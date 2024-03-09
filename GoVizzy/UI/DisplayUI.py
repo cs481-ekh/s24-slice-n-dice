@@ -1,5 +1,5 @@
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
+from ipywidgets import Dropdown, VBox, HBox, Output,  AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 import GoVizzy.plotting  
@@ -12,10 +12,13 @@ large_box = Output(layout=Layout(width="75%", height="100px"))
 additional_box = Output(layout=Layout(width="200px", height="300px"))
 slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
+exit_button = widgets.Button(description='[X]', button_style='danger')
+exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
+
 
 newCube_button = Button(description='New Cube Button', layout=Layout(width="200px", height="100px", border='1px solid black'))
 # Displays logo and hides the app output
-def hide_ui():
+def show_menu():
   
     additional_box.layout.visibility = 'hidden'
     dropdown.layout.visibility = 'hidden'
@@ -116,9 +119,7 @@ def display_app(large_box, additional_box):
     menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
     display_box = HBox([large_box, menu_options])
     
-    exit_button = widgets.Button(description='[X]', button_style='danger')
-    exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
-
+    
     slim_box = HBox([ exit_button])
     slim_box.layout.width = '100%'
     slim_box.layout.height = '20px'
@@ -138,9 +139,17 @@ def display_app(large_box, additional_box):
 # Call the display_app function
 display_app(large_box, additional_box)
 
-
-
-
+def clear_all_outputs():
+    large_box.clear_output()
+    additional_box.clear_output()
+    slice_picker.clear_output()
+    newCube_button.layout.visibility = 'hidden'
+    exit_button.layout.visibility = 'hidden'
+    slice_picker.layout.visibility = 'hidden'
+    slice_picker_descr.layout.visibility = 'hidden'
+    dropdown.layout.visibility = 'hidden'
+   
+    
 def handle_dropdown_change(change, cube):
     global selected_option
     selected_option = change.new
