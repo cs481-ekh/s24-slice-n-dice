@@ -40,16 +40,25 @@ def handle_submit_button_clicked(b):
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
 
+           
             DisplayUI.dropdown.observe(
                     lambda change: DisplayUI.handle_dropdown_change(change, new_cube),
                     names='value'
                 )
+            DisplayUI.newCube_button.on_click(handle_newCube_click)
+  
                 
         else:
             print(f"Source file not found: {fileName}")
     else:
         print("Enter a valid .cube file name")
 
+
+def handle_newCube_click(b):
+    DisplayUI.hide_ui()
+    file_input.layout.visibility = 'visible'
+    submit_button.layout.visibility = 'visible'
+    
 def main():
     global file_input, submit_button
     

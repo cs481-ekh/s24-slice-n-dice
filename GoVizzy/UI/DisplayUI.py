@@ -1,5 +1,5 @@
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 import GoVizzy.plotting  
@@ -13,8 +13,7 @@ additional_box = Output(layout=Layout(width="200px", height="300px"))
 slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
 
-newCube = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
-newCube_descr = widgets.Label(value="New Cube", layout=Layout(margin='5px 0 0 5px'))
+newCube_button = Button(description='New Cube Button', layout=Layout(width="200px", height="100px", border='1px solid black'))
 # Displays logo and hides the app output
 def hide_ui():
   
@@ -22,8 +21,7 @@ def hide_ui():
     dropdown.layout.visibility = 'hidden'
     slice_picker.layout.visibility = 'hidden'
     slice_picker_descr.layout.visibility = 'hidden'
-    newCube.layout.visibility = 'hidden'
-    newCube_descr.layout.visibility = 'hidden'
+    newCube_button.layout.visibility = 'hidden'
     with large_box:
         # Clear previous content
         large_box.clear_output(wait=True)
@@ -44,8 +42,7 @@ def show_ui():
     dropdown.layout.visibility = 'visible'
     slice_picker.layout.visibility = 'visible'
     slice_picker_descr.layout.visibility = 'visible'
-    newCube.layout.visibility = 'visible'
-    newCube_descr.layout.visibility = 'visible'
+    newCube_button.layout.visibility = 'visible'
 
 def display_cube(cube):
     
@@ -111,9 +108,12 @@ def display_app(large_box, additional_box):
     dropdown_container = VBox([dropdown])
     # Combine the Output widgets with their descriptions
     slice_box = VBox([slice_picker_descr, slice_picker])
-    newCube_box = VBox([newCube_descr, newCube])
     
-    menu_options = VBox([dropdown, slice_box, additional_box, newCube_box])
+    
+    # Attach callback function to button click event
+    
+    
+    menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
     display_box = HBox([large_box, menu_options])
     
     exit_button = widgets.Button(description='[X]', button_style='danger')
@@ -137,6 +137,8 @@ def display_app(large_box, additional_box):
 
 # Call the display_app function
 display_app(large_box, additional_box)
+
+
 
 
 def handle_dropdown_change(change, cube):
