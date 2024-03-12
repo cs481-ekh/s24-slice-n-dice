@@ -1,6 +1,6 @@
 from widgets import slice_x_slider, slice_y_slider, slice_z_slider
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 import GoVizzy.plotting
@@ -13,21 +13,24 @@ large_box = Output(layout=Layout(width="75%", height="100px"))
 additional_box = Output(layout=Layout(width="200px", height="300px"))
 slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
+exit_button = widgets.Button(description='[X]', button_style='danger')
+exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
 
-newCube = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
-newCube_descr = widgets.Label(value="New Cube", layout=Layout(margin='5px 0 0 5px'))
+
+newCube_button = Button(description='New Cube Button', layout=Layout(width="200px", height="100px", border='1px solid black'))
 # Displays logo and hides the app output
-def hide_ui():
+def show_menu():
   
     additional_box.layout.visibility = 'hidden'
     dropdown.layout.visibility = 'hidden'
     slice_picker.layout.visibility = 'hidden'
     slice_picker_descr.layout.visibility = 'hidden'
-    newCube.layout.visibility = 'hidden'
-    newCube_descr.layout.visibility = 'hidden'
+    newCube_button.layout.visibility = 'hidden'
     with large_box:
         # Clear previous content
         large_box.clear_output(wait=True)
+        large_box.layout = Layout(width="100%", height="70%", justify_content="center", margin="0 0 5% 40%")
+
         image_path = './gv.png'  
         image_data = plt.imread(image_path)
         plt.figure()
@@ -37,21 +40,21 @@ def hide_ui():
      
 
 def show_ui():
-    large_box = Output(layout=Layout(width="70%", height="300px"))
-
+    
     large_box.layout.visibility = 'visible'
     additional_box.layout.visibility = 'visible'
     dropdown.layout.visibility = 'visible'
     slice_picker.layout.visibility = 'visible'
     slice_picker_descr.layout.visibility = 'visible'
-    newCube.layout.visibility = 'visible'
-    newCube_descr.layout.visibility = 'visible'
+    newCube_button.layout.visibility = 'visible'
 
 def display_cube(cube):
     
     with large_box:  # Capture output within large_box
         # Clear previous content
-        large_box.clear_output(wait=True)
+        large_box.clear_output()
+        large_box.layout = Layout(width="85%", height="70%")
+
         
         if selected_option == 'Static Image':
             display_static_image(cube)
@@ -108,14 +111,14 @@ def display_app(large_box, additional_box):
     dropdown_container = VBox([dropdown])
     # Combine the Output widgets with their descriptions
     slice_box = VBox([slice_picker_descr, slice_picker])
-    newCube_box = VBox([newCube_descr, newCube])
+        
+    # Attach callback function to button click event
     
-    menu_options = VBox([dropdown, slice_box, additional_box, slice_x_slider, slice_y_slider, slice_z_slider, newCube_box])
+    
+    menu_options = VBox([dropdown, slice_box, additional_box, slice_x_slider, slice_y_slider, slice_z_slider, newCube_button], layout=Layout(flex='1'))
     display_box = HBox([large_box, menu_options])
     
-    exit_button = widgets.Button(description='[X]', button_style='danger')
-    exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
-
+    
     slim_box = HBox([ exit_button])
     slim_box.layout.width = '100%'
     slim_box.layout.height = '20px'
@@ -135,7 +138,20 @@ def display_app(large_box, additional_box):
 # Call the display_app function
 display_app(large_box, additional_box)
 
-
+def clear_all_outputs():
+    large_box.clear_output()
+    additional_box.clear_output()
+    slice_picker.clear_output()
+    newCube_button.layout.visibility = 'hidden'
+    exit_button.layout.visibility = 'hidden'
+    slice_picker.layout.visibility = 'hidden'
+    slice_picker_descr.layout.visibility = 'hidden'
+    dropdown.layout.visibility = 'hidden'
+    with large_box:
+        exit_message = widgets.Textarea(value='Please restart the terminal and "%run Main.py" to continue use', disabled=True)
+   
+        display(exit_message)
+    
 def handle_dropdown_change(change, cube):
     global selected_option
     selected_option = change.new
