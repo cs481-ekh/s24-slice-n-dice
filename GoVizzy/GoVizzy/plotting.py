@@ -100,3 +100,22 @@ class Visualizer:
         ipv.style.background_color(color.value)
         ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=True)
         ipv.show()
+        
+    def display_cell_slices(self):
+        """
+        Displays the cube's data3D with the volshow() method,
+        and attach slices with textures set to the volume data. 
+        """
+        cube = self.cube
+        fig = ipv.figure()
+        transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=True)
+        ipv.style.background_color(color.value)
+        volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=True)
+        
+        # Create planes, with textures set to the volume info        
+        slice_x = ipv.plot_plane('x', volume=volume, description="Slice X", description_color="black", icon="mdi-knife", x_offset=70)
+        slice_y = ipv.plot_plane('y', volume=volume, description="Slice Y", description_color="black", icon="mdi-knife", y_offset=70)
+        slice_z = ipv.plot_plane('z', volume=volume, description="Slice Z", description_color="black", icon="mdi-knife", z_offset=70)
+        
+        ipv.show()
+        
