@@ -1,5 +1,5 @@
 import os
-from widgets import color
+from widgets import color, slice_x_slider, slice_y_slider, slice_z_slider
 from cube_viskit import Cube
 import ipywidgets as widgets
 import ipyvolume as ipv
@@ -116,6 +116,10 @@ class Visualizer:
         slice_x = ipv.plot_plane('x', volume=volume, description="Slice X", description_color="black", icon="mdi-knife", x_offset=70)
         slice_y = ipv.plot_plane('y', volume=volume, description="Slice Y", description_color="black", icon="mdi-knife", y_offset=70)
         slice_z = ipv.plot_plane('z', volume=volume, description="Slice Z", description_color="black", icon="mdi-knife", z_offset=70)
+        
+        widgets.jslink((slice_x_slider, 'value'), (slice_x, 'x_offset'))
+        widgets.jslink((slice_y_slider, 'value'), (slice_y, 'y_offset'))
+        widgets.jslink((slice_z_slider, 'value'), (slice_z, 'z_offset'))
         
         ipv.show()
         
