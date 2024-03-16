@@ -78,8 +78,10 @@ def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, 
     Plots the atoms from a provided Cube object using the sizes and colors in
     the provided dicts. The keys are the atomic number of the atoms in the cell.
     '''
+    default_color = "red"
+    default_size = 10
     for atom in range(len(cube.atoms)):
         position = cube.atoms.get_scaled_positions()[atom]
         number = cube.atoms.get_atomic_numbers()[atom]
         x, z, y = tuple(p * cube.data3D.shape[idx] / Bohr for idx, p in enumerate(position))
-        plot_sphere_surface((x, y, z), sizes[number], colors[number])
+        plot_sphere_surface((x, y, z), sizes[number] or default_size, colors[number] or default_color)
