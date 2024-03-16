@@ -73,7 +73,11 @@ def plot_sphere_surface(origin: tuple[int, int, int]=(0, 0, 0), radius: int=1, c
     x, y, z = np.array(list(sphere_surface(gridx, gridy)))
     ipv.plot_surface(x, z, y, color=color)
 
-def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, str]=default_colors):    
+def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, str]=default_colors):
+    '''
+    Plots the atoms from a provided Cube object using the sizes and colors in
+    the provided dicts. The keys are the atomic number of the atoms in the cell.
+    '''
     for atom in range(len(cube.atoms)):
         position = cube.atoms.get_scaled_positions()[atom]
         number = cube.atoms.get_atomic_numbers()[atom]
