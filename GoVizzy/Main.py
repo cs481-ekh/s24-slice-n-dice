@@ -1,4 +1,4 @@
-import fileInput
+from GoVizzy import fileInput
 import ipywidgets as widgets
 import os
 import cube_viskit as cv
@@ -10,7 +10,6 @@ import signal
 import sys
 
 
-
 # Define a text input widget
 file_input = widgets.Text(description='File Name:')
 
@@ -18,7 +17,7 @@ file_input = widgets.Text(description='File Name:')
 submit_button = widgets.Button(description='Submit')
 
 # Define the app layout
-options = ['Static Image', 'Grid Points', 'Volumetric']
+
 
 display_box = Output(layout=Layout(width="70%", height="100px"))
 additional_box = Output(layout=Layout(width="30%", height="300px"))
@@ -39,7 +38,7 @@ def handle_submit_button_clicked(b):
                 DisplayUI.show_ui()
                 DisplayUI.display_cube(new_cube)
                 DisplayUI.display_app(display_box, additional_box) 
-                DisplayUI.display_cell_data(new_cube)
+                #DisplayUI.display_cell_data(new_cube)
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
 
@@ -48,7 +47,7 @@ def handle_submit_button_clicked(b):
             DisplayUI.dropdown.observe(
                     lambda change: DisplayUI.handle_dropdown_change(change, new_cube),
                     names='value'
-                )
+                ) 
             DisplayUI.newCube_button.on_click(handle_newCube_click)
             
                 

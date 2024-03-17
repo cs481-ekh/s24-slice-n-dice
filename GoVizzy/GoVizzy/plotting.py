@@ -1,5 +1,5 @@
 import os
-from widgets import color, slice_x_slider, slice_y_slider, slice_z_slider
+from UI.widgets import color, slice_x_slider, slice_y_slider, slice_z_slider
 from cube_viskit import Cube
 import ipywidgets as widgets
 import ipyvolume as ipv
@@ -98,7 +98,7 @@ class Visualizer:
         ipv.figure()
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=True)
         ipv.style.background_color(color.value)
-        ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=True)
+        ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
         ipv.show()
         
     def display_cell_slices(self):
@@ -108,9 +108,9 @@ class Visualizer:
         """
         cube = self.cube
         fig = ipv.figure()
-        transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=True)
+        transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
         ipv.style.background_color(color.value)
-        volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=True)
+        volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
         
         # Create planes, with textures set to the volume info        
         slice_x = ipv.plot_plane('x', volume=volume, description="Slice X", description_color="black", icon="mdi-knife", x_offset=70)
