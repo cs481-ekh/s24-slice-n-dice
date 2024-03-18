@@ -38,13 +38,13 @@ def handle_submit_button_clicked(b):
                 DisplayUI.show_ui()
                 DisplayUI.display_cube(new_cube)
                 DisplayUI.display_app(display_box, additional_box) 
-                #DisplayUI.display_cell_data(new_cube)
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
 
 
             # Handlers for dropdown change and button clicks
             DisplayUI.dropdown.observe(
+                    
                     lambda change: DisplayUI.handle_dropdown_change(change, new_cube),
                     names='value'
                 ) 

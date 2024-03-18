@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from GoVizzy import plotting, meshes
 
 # Define globals
-selected_option = 'Color Options'
+selected_option ='Color Options'
 options = ['Slice Options', 'Mesh Options', 'Color Options']
 dropdown = Dropdown(options=options, value=options[2], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
@@ -82,9 +82,10 @@ def display_app(large_box, additional_box):
     dropdown_container = VBox([dropdown])
     # Combine the Output widgets with their descriptions
     if selected_option == 'Slice Options':
+        #display slidersss TO DO 
         show_ui()
         slice_box = VBox([slice_picker_descr,  slice_x_slider, slice_y_slider, slice_z_slider])
-        
+ 
         menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
     
@@ -99,6 +100,7 @@ def display_app(large_box, additional_box):
                            footer=None, pane_heights=['20px', 1, '20px'])
     
     elif selected_option == 'Mesh Options':
+        #display Mesh TO DO 
         menu_options = VBox([dropdown, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
     
@@ -138,10 +140,7 @@ def display_app(large_box, additional_box):
 # Call the display_app function
 display_app(large_box, additional_box)
 
-#display slidersss TO DO 
 
-
-#display Mesh TO DO 
 
 def clear_all_outputs():
     large_box.clear_output()
@@ -168,7 +167,4 @@ def handle_dropdown_change(change, cube):
     # Display the cube based on the selected option
     display_cube(cube)
     
-    # Update the app layout
-   
-
-    dropdown.observe(handle_dropdown_change, names='value')
+  
