@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 from GoVizzy import plotting, meshes
 
 # Define globals
-selected_option ='Color Options'
+selected_option ='Slice Options'
 options = ['Slice Options', 'Mesh Options', 'Color Options']
-dropdown = Dropdown(options=options, value=options[2], layout=Layout(margin='5px 0 0 5px'));
+dropdown = Dropdown(options=options, value=options[0], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
 additional_box = Output(layout=Layout(width="200px", height="300px"))
 slice_picker = Output(layout=Layout(width="200px", height="100px", border='1px solid black'))
@@ -36,7 +36,7 @@ def show_menu():
         plt.imshow(image_data)
         plt.axis('off')  
         plt.show()
-     
+   # display_app()
 
 def show_ui():
     
@@ -53,13 +53,15 @@ def display_cube(cube):
         # Clear previous content
         large_box.clear_output()
         large_box.layout = Layout(width="85%", height="100%")
-
+        
         
         if selected_option == 'Slice Options':
             visualizer.display_cell_slices()
             with additional_box:
                 additional_box.clear_output(wait=True)
                 visualizer.display_cell_data()
+           
+    
         elif selected_option == 'Mesh Options':
             visualizer.display_cell()
             origin = (50, 50, 50)
@@ -72,10 +74,10 @@ def display_cube(cube):
                 visualizer.display_cell_data()
         else:
             print("Invalid option selected")
+        
 
 
-
-def display_app(large_box, additional_box):
+def display_app():
     # Attach the dropdown change handler
       
     # Create a VBox for dropdown
@@ -83,7 +85,7 @@ def display_app(large_box, additional_box):
     # Combine the Output widgets with their descriptions
     if selected_option == 'Slice Options':
         #display slidersss TO DO 
-        show_ui()
+        
         slice_box = VBox([slice_picker_descr,  slice_x_slider, slice_y_slider, slice_z_slider])
  
         menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
@@ -138,8 +140,8 @@ def display_app(large_box, additional_box):
     display(app_layout)
 
 # Call the display_app function
-display_app(large_box, additional_box)
 
+display_app()
 
 
 def clear_all_outputs():
@@ -165,6 +167,8 @@ def handle_dropdown_change(change, cube):
         large_box.clear_output(wait=True)
     
     # Display the cube based on the selected option
+    
     display_cube(cube)
+    display_app() 
     
   

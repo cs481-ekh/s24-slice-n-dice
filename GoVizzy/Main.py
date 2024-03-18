@@ -37,7 +37,7 @@ def handle_submit_button_clicked(b):
                 new_cube.load_cube(destination_path)
                 DisplayUI.show_ui()
                 DisplayUI.display_cube(new_cube)
-                DisplayUI.display_app(display_box, additional_box) 
+                DisplayUI.display_app() 
                 file_input.layout.visibility = 'hidden'  # Hide the file input widget
                 submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
 
