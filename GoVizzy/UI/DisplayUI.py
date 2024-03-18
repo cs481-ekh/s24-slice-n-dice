@@ -67,6 +67,7 @@ def display_cube(cube):
             origin = (50, 50, 50)
             radius = 10
             meshes.plot_sphere_surface(origin, radius)
+            additional_box.clear_output(wait=True)
         elif selected_option == 'Color Options':
             visualizer.display_cell()
             with additional_box:
@@ -78,6 +79,7 @@ def display_cube(cube):
 
 
 def display_app():
+    
     # Attach the dropdown change handler
       
     # Create a VBox for dropdown
