@@ -1,8 +1,9 @@
+from widgets import slice_x_slider, slice_y_slider, slice_z_slider
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output,  AppLayout, Layout, Label, Button
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
-import GoVizzy.plotting  
+import GoVizzy.plotting
 
 # Define globals
 selected_option = 'Volumetric'
@@ -100,23 +101,21 @@ def display_ipyvolume_plot(cube):
     with large_box:
         #ipv.show()
         visualizer = GoVizzy.plotting.Visualizer(cube)
-        visualizer.display_cell()
+        visualizer.display_cell_slices()
 
 
 def display_app(large_box, additional_box):
     # Attach the dropdown change handler
-   
-    
+      
     # Create a VBox for dropdown
     dropdown_container = VBox([dropdown])
     # Combine the Output widgets with their descriptions
     slice_box = VBox([slice_picker_descr, slice_picker])
-    
-    
+        
     # Attach callback function to button click event
     
     
-    menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
+    menu_options = VBox([dropdown, slice_box, additional_box, slice_x_slider, slice_y_slider, slice_z_slider, newCube_button], layout=Layout(flex='1'))
     display_box = HBox([large_box, menu_options])
     
     
