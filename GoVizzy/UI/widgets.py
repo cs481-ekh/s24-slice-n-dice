@@ -44,7 +44,7 @@ slice_z_slider = FloatSlider(
     readout_format='.1f'
 )
 
-color = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
+color = ColorPicker(concise=True, value='white', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
 
 
 # Input form items
