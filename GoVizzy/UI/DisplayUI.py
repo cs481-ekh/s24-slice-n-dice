@@ -3,7 +3,7 @@ import ipywidgets as widgets
 from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
-from GoVizzy import plotting, meshes
+from UI import plotting, meshes
 
 # Define globals
 selected_option ='Slice Options'
