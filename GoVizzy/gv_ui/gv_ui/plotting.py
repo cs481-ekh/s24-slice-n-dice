@@ -1,5 +1,5 @@
 import os
-from UI.widgets import color, slice_x_slider, slice_y_slider, slice_z_slider
+from widgets import color, slice_x_slider, slice_y_slider, slice_z_slider
 from cube_viskit import Cube
 import ipywidgets as widgets
 import ipyvolume as ipv

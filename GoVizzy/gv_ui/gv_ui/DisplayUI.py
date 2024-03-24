@@ -1,9 +1,9 @@
-from UI.widgets import slice_x_slider, slice_y_slider, slice_z_slider
+from gv-ui.widgets import slice_x_slider, slice_y_slider, slice_z_slider
 import ipywidgets as widgets
 from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
-from UI import plotting, meshes
+import plotting, meshes
 
 # Define globals
 selected_option ='Slice Options'

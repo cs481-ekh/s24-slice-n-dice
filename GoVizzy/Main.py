@@ -4,7 +4,7 @@ import cube_viskit as cv
 import matplotlib.pyplot as plt
 from ipywidgets import AppLayout, Button, HBox, Layout, HBox, Output, Dropdown, Textarea
 from IPython.display import display, clear_output
-from UI import DisplayUI, fileInput
+from gv_ui import DisplayUI, fileInput
 import signal
 import sys
 
