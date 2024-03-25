@@ -1,9 +1,8 @@
-from UI.widgets import slice_x_slider, slice_y_slider, slice_z_slider
 import ipywidgets as widgets
 from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
-from GoVizzy import plotting, meshes
+from gv_ui import plotting, meshes, gvWidgets
 
 # Define globals
 selected_option ='Slice Options'
@@ -30,7 +29,7 @@ def show_menu():
         large_box.clear_output(wait=True)
         large_box.layout = Layout(width="100%", height="70%", justify_content="center", margin="0 0 5% 40%")
 
-        image_path = './UI/gv.png'  
+        image_path = './gv_ui/gv.png'  
         image_data = plt.imread(image_path)
         plt.figure()
         plt.imshow(image_data)
@@ -88,7 +87,7 @@ def display_app():
     if selected_option == 'Slice Options':
         #display slidersss TO DO 
         
-        slice_box = VBox([slice_picker_descr,  slice_x_slider, slice_y_slider, slice_z_slider])
+        slice_box = VBox([slice_picker_descr,  gvWidgets.slice_x_slider, gvWidgets.slice_y_slider, gvWidgets.slice_z_slider])
  
         menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])

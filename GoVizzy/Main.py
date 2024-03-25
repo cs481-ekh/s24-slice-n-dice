@@ -1,11 +1,10 @@
-from GoVizzy import fileInput
 import ipywidgets as widgets
 import os
 import cube_viskit as cv
 import matplotlib.pyplot as plt
 from ipywidgets import AppLayout, Button, HBox, Layout, HBox, Output, Dropdown, Textarea
 from IPython.display import display, clear_output
-from UI import DisplayUI
+from gv_ui import DisplayUI, fileInput
 import signal
 import sys
 

@@ -1,4 +1,4 @@
-from UI.widgets import color
+from gv_ui import gvWidgets
 from cube_viskit import Cube
 import ipywidgets as widgets
 import ipyvolume as ipv

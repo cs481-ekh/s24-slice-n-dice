@@ -4,3 +4,5 @@
 __pycache__/
 GoVizzy/cube/build/
 GoVizzy/cube/cube_viskit.egg-info/
+GoVizzy/gv_ui/build/
+GoVizzy/gv_ui/gv_ui.egg-info/

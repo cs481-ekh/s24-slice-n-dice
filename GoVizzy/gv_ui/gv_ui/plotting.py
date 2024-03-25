@@ -1,9 +1,9 @@
 import os
-from UI.widgets import color, slice_x_slider, slice_y_slider, slice_z_slider
 from cube_viskit import Cube
 import ipywidgets as widgets
 import ipyvolume as ipv
 from IPython.display import display
+from gv_ui import gvWidgets
 
 class Visualizer:
     """
@@ -97,7 +97,7 @@ class Visualizer:
         cube = self.cube
         ipv.figure()
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
-        ipv.style.background_color(color.value)
+        ipv.style.background_color(gvWidgets.color.value)
         ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
         ipv.show()
         
@@ -109,7 +109,7 @@ class Visualizer:
         cube = self.cube
         fig = ipv.figure()
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
-        ipv.style.background_color(color.value)
+        ipv.style.background_color(gvWidgets.color.value)
         volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
         
         # Create planes, with textures set to the volume info        
@@ -117,9 +117,9 @@ class Visualizer:
         slice_y = ipv.plot_plane('y', volume=volume, description="Slice Y", description_color="black", icon="mdi-knife", y_offset=70)
         slice_z = ipv.plot_plane('z', volume=volume, description="Slice Z", description_color="black", icon="mdi-knife", z_offset=70)
         
-        widgets.jslink((slice_x_slider, 'value'), (slice_x, 'x_offset'))
-        widgets.jslink((slice_y_slider, 'value'), (slice_y, 'y_offset'))
-        widgets.jslink((slice_z_slider, 'value'), (slice_z, 'z_offset'))
+        widgets.jslink((gvWidgets.slice_x_slider, 'value'), (slice_x, 'x_offset'))
+        widgets.jslink((gvWidgets.slice_y_slider, 'value'), (slice_y, 'y_offset'))
+        widgets.jslink((gvWidgets.slice_z_slider, 'value'), (slice_z, 'z_offset'))
         
         ipv.show()
         

@@ -10,8 +10,9 @@ install()
 {
     python -m venv --system-site-packages .venv
 
-    .venv/$binDir/pip3 install --user ./GoVizzy/cube
     .venv/$binDir/pip3 install --ignore-installed -r requirements.txt
+    .venv/$binDir/pip3 install --user ./GoVizzy/cube
+    .venv/$binDir/pip3 install --user ./GoVizzy/gv_ui
 }
 
 launch()
