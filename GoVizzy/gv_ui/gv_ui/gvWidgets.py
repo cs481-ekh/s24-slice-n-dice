@@ -14,17 +14,37 @@ form_item_layout = Layout(
 )
 
 
-test_slider = FloatSlider(
+slice_x_slider = FloatSlider(
     value=0,
     min=0,
-    max=10,
+    max=120,
     step=0.1,
-    description='Example slider!',
+    description='X slice position',
     readout=True,
     readout_format='.1f'
 )
 
-color = ColorPicker(concise=True, value='blue', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
+slice_y_slider = FloatSlider(
+    value=0,
+    min=0,
+    max=120,
+    step=0.1,
+    description='Y slice position',
+    readout=True,
+    readout_format='.1f'
+)
+
+slice_z_slider = FloatSlider(
+    value=0,
+    min=0,
+    max=120,
+    step=0.1,
+    description='Z slice position',
+    readout=True,
+    readout_format='.1f'
+)
+
+color = ColorPicker(concise=True, value='white', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
 
 
 # Input form items
@@ -34,7 +54,7 @@ form_items = [
          Textarea()], layout=form_item_layout),
     color,
     Button(description='Submit', layout=Layout(flex='1 1 0%', width='auto')),
-    test_slider,
+    slice_x_slider,
 ]
 
 # Create the input form box
@@ -45,4 +65,5 @@ form = Box(form_items, layout=Layout(
     align_items='stretch',
     width='50%'
 ))
-form, color, test_slider
+
+form, color, slice_x_slider, slice_y_slider, slice_z_slider
