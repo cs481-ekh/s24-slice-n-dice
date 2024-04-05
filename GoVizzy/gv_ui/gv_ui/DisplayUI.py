@@ -87,7 +87,7 @@ def display_app():
     if selected_option == 'Slice Options':
         #display slidersss TO DO 
         
-        slice_box = VBox([slice_picker_descr,  gvWidgets.slice_x_slider, gvWidgets.slice_y_slider, gvWidgets.slice_z_slider])
+        slice_box = VBox([slice_picker_descr, gvWidgets.slice_x_slider, gvWidgets.slice_x_check, gvWidgets.slice_y_slider, gvWidgets.slice_y_check, gvWidgets.slice_z_slider, gvWidgets.slice_z_check])
  
         menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
