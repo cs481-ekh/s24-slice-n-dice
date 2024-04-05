@@ -3,7 +3,8 @@
     Documentation for widget library: https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload
 '''
 from IPython.display import display
-from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider
+from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link
+from ipyvolume.widgets import Mesh
 
 # Input form
 # Layout for Input form
@@ -43,6 +44,11 @@ slice_z_slider = FloatSlider(
     readout=True,
     readout_format='.1f'
 )
+
+def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
+    toggle = Checkbox(value=True, description=description)
+    link((toggle, 'value'), (mesh, 'visible'))
+    return toggle
 
 color = ColorPicker(concise=True, value='white', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
 

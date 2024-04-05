@@ -1,8 +1,10 @@
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button, Checkbox, link
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 from gv_ui import plotting, meshes, gvWidgets
+from gv_ui.gvWidgets import mesh_visibility_toggle
+from IPython.display import display
 
 # Define globals
 selected_option ='Slice Options'
@@ -16,6 +18,9 @@ exit_button = widgets.Button(description='[X]', button_style='danger')
 exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
 
 newCube_button = Button(description='New Cube', layout=Layout(width="200px", height="100px", border='1px solid black'))
+
+atom_meshes = []
+
 # Displays logo and hides the app output
 def show_menu():
   
@@ -48,6 +53,7 @@ def show_ui():
 
 def display_cube(cube):
     visualizer = plotting.Visualizer(cube)
+    global atom_meshes
     with large_box:  # Capture output within large_box
         # Clear previous content
         large_box.clear_output()
@@ -63,10 +69,9 @@ def display_cube(cube):
     
         elif selected_option == 'Mesh Options':
             visualizer.display_cell()
-            origin = (50, 50, 50)
-            radius = 10
-            meshes.plot_sphere_surface(origin, radius)
-            additional_box.clear_output(wait=True)
+            atom_meshes = meshes.plot_atoms(cube)
+            with additional_box:
+                additional_box.clear_output(wait=True)
         elif selected_option == 'Color Options':
             visualizer.display_cell()
             with additional_box:
@@ -104,7 +109,9 @@ def display_app():
     
     elif selected_option == 'Mesh Options':
         #display Mesh TO DO 
-        menu_options = VBox([dropdown, additional_box, newCube_button], layout=Layout(flex='1'))
+        toggle_visible = [mesh_visibility_toggle(mesh, f"Atom {idx}") for idx, mesh in enumerate(atom_meshes)]
+        mesh_box = VBox([*toggle_visible])
+        menu_options = VBox([dropdown, mesh_box, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
     
         slim_box = HBox([ exit_button])
