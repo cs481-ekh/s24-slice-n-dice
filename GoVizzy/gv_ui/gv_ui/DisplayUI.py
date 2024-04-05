@@ -56,22 +56,17 @@ def display_cube(cube):
         
         if selected_option == 'Slice Options':
             visualizer.display_cell_slices()
-            with additional_box:
-                additional_box.clear_output(wait=True)
-                visualizer.display_cell_data()
-           
+            
     
         elif selected_option == 'Mesh Options':
             visualizer.display_cell()
             origin = (50, 50, 50)
             radius = 10
             meshes.plot_sphere_surface(origin, radius)
-            additional_box.clear_output(wait=True)
+            
         elif selected_option == 'Color Options':
             visualizer.display_cell()
-            with additional_box:
-                additional_box.clear_output(wait=True)
-                visualizer.display_cell_data()
+            
         else:
             print("Invalid option selected")
         
@@ -86,10 +81,11 @@ def display_app():
     # Combine the Output widgets with their descriptions
     if selected_option == 'Slice Options':
         #display slidersss TO DO 
-        
-        slice_box = VBox([slice_picker_descr, gvWidgets.slice_x_slider, gvWidgets.slice_x_check, gvWidgets.slice_y_slider, gvWidgets.slice_y_check, gvWidgets.slice_z_slider, gvWidgets.slice_z_check])
- 
-        menu_options = VBox([dropdown, slice_box, additional_box, newCube_button], layout=Layout(flex='1'))
+        with additional_box:
+            additional_box.clear_output()
+            slice_box = VBox([slice_picker_descr, gvWidgets.slice_x_slider, gvWidgets.slice_x_check, gvWidgets.slice_y_slider, gvWidgets.slice_y_check, gvWidgets.slice_z_slider, gvWidgets.slice_z_check])
+            display(slice_box)
+        menu_options = VBox([dropdown, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
     
         slim_box = HBox([ exit_button])
@@ -104,6 +100,10 @@ def display_app():
     
     elif selected_option == 'Mesh Options':
         #display Mesh TO DO 
+        with additional_box:
+            additional_box.clear_output()
+            
+        
         menu_options = VBox([dropdown, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
     
@@ -119,7 +119,8 @@ def display_app():
     
     elif selected_option == 'Color Options':
         #ADD color controls here 
-
+        with additional_box:
+            additional_box.clear_output()
         
         menu_options = VBox([dropdown, additional_box, newCube_button], layout=Layout(flex='1'))
         display_box = HBox([large_box, menu_options])
