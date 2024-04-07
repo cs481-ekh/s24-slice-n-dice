@@ -121,5 +121,9 @@ class Visualizer:
         widgets.jslink((gvWidgets.slice_y_slider, 'value'), (slice_y, 'y_offset'))
         widgets.jslink((gvWidgets.slice_z_slider, 'value'), (slice_z, 'z_offset'))
         
+        widgets.jslink((gvWidgets.slice_x_check, 'value'), (slice_x, 'visible'))
+        widgets.jslink((gvWidgets.slice_y_check, 'value'), (slice_y, 'visible'))
+        widgets.jslink((gvWidgets.slice_z_check, 'value'), (slice_z, 'visible'))
+        
         ipv.show()
         

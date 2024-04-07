@@ -85,7 +85,7 @@ def main():
     file_input_button = HBox((file_input, submit_button), layout=Layout(justify_content='center'))
 
     DisplayUI.exit_button.on_click(handle_exit_click)
-    
+    DisplayUI.in_app_exit.on_click(handle_exit_click)
     display(file_input_button)
 
 # Call the main function

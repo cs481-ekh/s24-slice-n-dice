@@ -20,7 +20,7 @@ slice_x_slider = FloatSlider(
     min=0,
     max=120,
     step=0.1,
-    description='X slice position',
+    description='X Pos',
     readout=True,
     readout_format='.1f'
 )
@@ -30,7 +30,7 @@ slice_y_slider = FloatSlider(
     min=0,
     max=120,
     step=0.1,
-    description='Y slice position',
+    description='Y Pos',
     readout=True,
     readout_format='.1f'
 )
@@ -40,9 +40,30 @@ slice_z_slider = FloatSlider(
     min=0,
     max=120,
     step=0.1,
-    description='Z slice position',
+    description='Z Pos',
     readout=True,
     readout_format='.1f'
+)
+
+slice_x_check = Checkbox(
+    value=False,
+    description='X Toggle',
+    disabled=False,
+    indent=True
+)
+
+slice_y_check = Checkbox(
+    value=False,
+    description='Y Toggle',
+    disabled=False,
+    indent=True
+)
+
+slice_z_check = Checkbox(
+    value=False,
+    description='Z Toggle',
+    disabled=False,
+    indent=True
 )
 
 def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
@@ -72,4 +93,4 @@ form = Box(form_items, layout=Layout(
     width='50%'
 ))
 
-form, color, slice_x_slider, slice_y_slider, slice_z_slider
+form, color, slice_x_slider, slice_y_slider, slice_z_slider, slice_x_check, slice_y_check, slice_z_check

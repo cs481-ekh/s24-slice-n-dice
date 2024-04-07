@@ -17,6 +17,8 @@ install()
 
 launch()
 {
+    .venv/$binDir/pip3 install --user ./GoVizzy/cube
+    .venv/$binDir/pip3 install --user ./GoVizzy/gv_ui
     .venv/$binDir/jupyter lab --notebook-dir=GoVizzy
 }
 
