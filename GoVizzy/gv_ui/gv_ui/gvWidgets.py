@@ -73,6 +73,10 @@ def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
 
 color = ColorPicker(concise=True, value='white', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
 
+def atom_color_picker(atom: Mesh, description: str="Color"):
+    picker = ColorPicker(value=str(atom.color), description=description)
+    link((picker, 'value'), (atom, 'color'))
+    return picker
 
 # Input form items
 form_items = [
