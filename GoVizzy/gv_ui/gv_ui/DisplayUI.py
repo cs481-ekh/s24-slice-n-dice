@@ -21,7 +21,6 @@ in_app_exit = widgets.Button(description='[X]', button_style='danger',border='1p
 newCube_button = Button(description='New Cube', layout=Layout(flex= '1',  border='1px solid black'))
 save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px solid black'))
 
-
 # atom mesh globals
 atom_meshes = []
 
@@ -116,6 +115,7 @@ def display_app():
             mesh_box = VBox([accordion])
             display(mesh_box)
         
+
     
     
     elif selected_option == 'Color Options':
