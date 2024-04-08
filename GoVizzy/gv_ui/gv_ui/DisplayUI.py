@@ -118,10 +118,10 @@ def display_app():
         
     
     
-    # elif selected_option == 'Color Options':
-    #     #ADD color controls here 
-    #     with selected_view_options:
-    #         selected_view_options.clear_output()
+    elif selected_option == 'Color Options':
+        #ADD color controls here 
+        with selected_view_options:
+            selected_view_options.clear_output()
         
         
     
