@@ -1,8 +1,10 @@
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button, Checkbox, link
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 from gv_ui import plotting, meshes, gvWidgets
+from gv_ui.gvWidgets import mesh_visibility_toggle
+from IPython.display import display
 
 # Define globals
 selected_option ='Slice Options'
@@ -18,6 +20,8 @@ in_app_exit = widgets.Button(description='[X]', button_style='danger',border='1p
 
 newCube_button = Button(description='New Cube', layout=Layout(flex= '1',  border='1px solid black'))
 save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px solid black'))
+
+atom_meshes = []
 # Displays logo and hides the app output
 def show_menu():
     exit_button.layout.visibility = 'visible'
@@ -50,6 +54,7 @@ def show_ui():
 
 def display_cube(cube):
     visualizer = plotting.Visualizer(cube)
+    global atom_meshes
     with large_box:  # Capture output within large_box
         # Clear previous content
         large_box.clear_output()
@@ -62,10 +67,7 @@ def display_cube(cube):
         # Mesh View
         elif selected_option == 'Mesh Options':
             visualizer.display_cell()
-            origin = (50, 50, 50)
-            radius = 10
-            meshes.plot_sphere_surface(origin, radius)
-            
+            atom_meshes = meshes.plot_atoms(cube)
         # Additional View   
         elif selected_option == 'Color Options':
             visualizer.display_cell()
@@ -99,10 +101,9 @@ def display_app():
         #display Mesh TO DO 
         with selected_view_options:
             selected_view_options.clear_output()
-            
-        
-     
-        
+            toggle_visible = [mesh_visibility_toggle(mesh, f"Atom {idx}") for idx, mesh in enumerate(atom_meshes)]
+            mesh_box = VBox([*toggle_visible])
+            display(mesh_box)
     
     
     elif selected_option == 'Color Options':
