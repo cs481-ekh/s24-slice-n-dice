@@ -8,7 +8,7 @@ from IPython.display import display
 
 # Define globals
 selected_option ='Slice Options'
-options = ['Slice Options', 'Mesh Options', 'Color Options']
+options = ['Slice Options', 'Mesh Options'] #, 'Color Options']
 dropdown = Dropdown(options=options, value=options[0], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
 selected_view_options = Output(layout=Layout(width="auto", height="300px"))
@@ -118,10 +118,10 @@ def display_app():
         
     
     
-    elif selected_option == 'Color Options':
-        #ADD color controls here 
-        with selected_view_options:
-            selected_view_options.clear_output()
+    # elif selected_option == 'Color Options':
+    #     #ADD color controls here 
+    #     with selected_view_options:
+    #         selected_view_options.clear_output()
         
         
     
@@ -131,7 +131,7 @@ def display_app():
             print("Invalid option selected")
     
     # Display the layout
-    view_bar = VBox([top_container, selected_view_options, bottom_container])
+    view_bar = VBox([top_container, selected_view_options, bottom_container], layout=Layout(flex='1'))
        
     display_box = HBox([large_box, view_bar])
     app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,
