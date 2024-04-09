@@ -70,6 +70,7 @@ def display_cube(cube):
         elif selected_option == 'Mesh Options':
             visualizer.display_cell()
             atom_meshes = meshes.plot_atoms(cube)
+            meshes.plot_bonds(cube)
 
         # Additional View   
         elif selected_option == 'Color Options':
