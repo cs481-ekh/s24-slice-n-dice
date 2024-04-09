@@ -4,7 +4,7 @@
 '''
 from IPython.display import display
 from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link, BoundedFloatText
-from ipyvolume.widgets import Mesh
+from ipyvolume.widgets import Mesh, Scatter
 import numpy as np
 
 # Input form
@@ -67,6 +67,27 @@ slice_z_check = Checkbox(
     indent=True
 )
 
+bond_visibility_toggle = Checkbox(
+    value=True,
+    description='Bond Visibility',
+    disabled=False,
+    indent=True
+)
+
+bond_color_picker = ColorPicker(
+    value="black", 
+    description="Bond Color"
+)
+
+bond_scale_slider = BoundedFloatText(
+        value=3,
+        min=0,
+        max=10,
+        step=0.01,
+        description="Bond Scale",
+        continuous_update=False
+)
+
 def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
     toggle = Checkbox(value=True, description=description)
     link((toggle, 'value'), (mesh, 'visible'))
@@ -78,6 +99,7 @@ def atom_color_picker(atom: Mesh, description: str="Color"):
     picker = ColorPicker(value=str(atom.color), description=description)
     link((picker, 'value'), (atom, 'color'))
     return picker
+
 
 def scale_atom_mesh(atom: Mesh, points: tuple[list, list, list], origin: tuple[float, float, float], scale: float):
     x, y, z = points
@@ -120,4 +142,4 @@ form = Box(form_items, layout=Layout(
     width='50%'
 ))
 
-form, color, slice_x_slider, slice_y_slider, slice_z_slider, slice_x_check, slice_y_check, slice_z_check
+form, color, slice_x_slider, slice_y_slider, slice_z_slider, slice_x_check, slice_y_check, slice_z_check, bond_scale_slider, bond_color_picker, bond_visibility_toggle

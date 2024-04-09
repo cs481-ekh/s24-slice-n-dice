@@ -89,13 +89,16 @@ def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, 
         atom_meshes.append(mesh)
     return atom_meshes
 
-def plot_bonds(cube: Cube):
+def plot_bonds(cube: Cube, size: int=3., color: int="black"):
     '''
     Plots the bonds between atoms in the current Cube object, using the list of atom pairs, 
     and the positions of the atoms in the graph.
     '''
     cube.get_bonds()
     num_pts = 1000
+    
+    line_plots = []
+    
     for bond in cube.bonds:
         atomPos1 = cube.atoms.get_scaled_positions()[bond[0]]
         x1, y1, z1 = tuple(p * cube.data3D.shape[idx] / Bohr for idx, p in enumerate(atomPos1))
@@ -108,7 +111,14 @@ def plot_bonds(cube: Cube):
         X = np.linspace(x1, x2, num_pts)
         Y = np.linspace(y1, y2, num_pts)
         Z = np.linspace(z1, z2, num_pts)
-        p = ipv.plot(X, Y, Z)
+        p = ipv.plot(X, Y, Z, color)
         p.material.visible = True
-        p.size = 3.
-            
+        p.size = size
+        
+        widgets.jslink((gvWidgets.bond_visibility_toggle, 'value'), (p, 'visible'))
+        widgets.jslink((gvWidgets.bond_scale_slider, 'value'), (p, 'size'))
+        widgets.jslink((gvWidgets.bond_color_picker, 'value'), (p, 'color'))
+
+        line_plots.append(p)
+        
+    return line_plots
