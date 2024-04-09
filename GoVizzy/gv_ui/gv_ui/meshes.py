@@ -71,7 +71,7 @@ def plot_sphere_surface(origin: tuple[int, int, int]=(0, 0, 0), radius: int=1, c
         return (x, y, z)
 
     x, y, z = np.array(list(sphere_surface(gridx, gridy)))
-    ipv.plot_surface(x, z, y, color=color)
+    return ipv.plot_surface(x, z, y, color=color)
 
 def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, str]=default_colors):
     '''
@@ -80,11 +80,14 @@ def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, 
     '''
     default_color = "red"
     default_size = 10
+    atom_meshes = []
     for atom in range(len(cube.atoms)):
         position = cube.atoms.get_scaled_positions()[atom]
         number = cube.atoms.get_atomic_numbers()[atom]
         x, z, y = tuple(p * cube.data3D.shape[idx] / Bohr for idx, p in enumerate(position))
-        plot_sphere_surface((x, y, z), sizes[number] or default_size, colors[number] or default_color)
+        mesh = plot_sphere_surface((x, y, z), sizes.get(number, default_size), colors.get(number, default_color))
+        atom_meshes.append(mesh)
+    return atom_meshes
 
 def plot_bonds(cube: Cube):
     '''
@@ -95,3 +98,4 @@ def plot_bonds(cube: Cube):
         print("Atoms: ",bond," Real Pos: ", )
         for atom in bond:
             print(cube.atoms.get_scaled_positions()[atom])
+            

@@ -3,7 +3,9 @@
     Documentation for widget library: https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload
 '''
 from IPython.display import display
-from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox
+from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link, BoundedFloatText
+from ipyvolume.widgets import Mesh
+import numpy as np
 
 # Input form
 # Layout for Input form
@@ -65,8 +67,39 @@ slice_z_check = Checkbox(
     indent=True
 )
 
+def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
+    toggle = Checkbox(value=True, description=description)
+    link((toggle, 'value'), (mesh, 'visible'))
+    return toggle
+
 color = ColorPicker(concise=True, value='white', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
 
+def atom_color_picker(atom: Mesh, description: str="Color"):
+    picker = ColorPicker(value=str(atom.color), description=description)
+    link((picker, 'value'), (atom, 'color'))
+    return picker
+
+def scale_atom_mesh(atom: Mesh, points: tuple[list, list, list], origin: tuple[float, float, float], scale: float):
+    x, y, z = points
+    origin_x, origin_y, origin_z = origin
+    scaled_x = (x - origin_x) * scale + origin_x
+    scaled_y = (y - origin_y) * scale + origin_y
+    scaled_z = (z - origin_z) * scale + origin_z
+    atom.x, atom.y, atom.z = scaled_x, scaled_y, scaled_z
+
+def atom_scale_slider(atom: Mesh, description: str="Scale"):
+    slider = BoundedFloatText(
+        value=1,
+        min=0,
+        max=10,
+        step=0.01,
+        description=description,
+        continuous_update=False
+    )
+    points = (list(atom.x), list(atom.y), list(atom.z))
+    origin = (np.mean(atom.x), np.mean(atom.y), np.mean(atom.z))
+    slider.observe(lambda change: scale_atom_mesh(atom, points, origin, change.new), 'value')
+    return slider
 
 # Input form items
 form_items = [

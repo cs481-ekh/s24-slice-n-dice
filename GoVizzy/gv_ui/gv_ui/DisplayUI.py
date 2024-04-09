@@ -1,15 +1,17 @@
 import ipywidgets as widgets
-from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button
+from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button, Checkbox, link, Accordion
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 from gv_ui import plotting, meshes, gvWidgets
+from gv_ui.gvWidgets import mesh_visibility_toggle, atom_color_picker, atom_scale_slider
+from IPython.display import display
 
 # Define globals
 selected_option ='Slice Options'
-options = ['Slice Options', 'Mesh Options', 'Color Options']
+options = ['Slice Options', 'Mesh Options'] #, 'Color Options']
 dropdown = Dropdown(options=options, value=options[0], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
-selected_view_options = Output(layout=Layout(width="200px", height="300px"))
+selected_view_options = Output(layout=Layout(width="auto", height="300px"))
 slice_picker = Output(layout=Layout(flex= '1',border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
 exit_button = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
@@ -18,6 +20,10 @@ in_app_exit = widgets.Button(description='[X]', button_style='danger',border='1p
 
 newCube_button = Button(description='New Cube', layout=Layout(flex= '1',  border='1px solid black'))
 save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px solid black'))
+
+# atom mesh globals
+atom_meshes = []
+
 # Displays logo and hides the app output
 def show_menu():
     exit_button.layout.visibility = 'visible'
@@ -49,6 +55,7 @@ def show_ui():
     newCube_button.layout.visibility = 'visible'
 
 def display_cube(cube):
+    global atom_meshes
     visualizer = plotting.Visualizer(cube)
     with large_box:  # Capture output within large_box
         # Clear previous content
@@ -62,10 +69,8 @@ def display_cube(cube):
         # Mesh View
         elif selected_option == 'Mesh Options':
             visualizer.display_cell()
-            origin = (50, 50, 50)
-            radius = 10
-            meshes.plot_sphere_surface(origin, radius)
-            
+            atom_meshes = meshes.plot_atoms(cube)
+
         # Additional View   
         elif selected_option == 'Color Options':
             visualizer.display_cell()
@@ -78,7 +83,7 @@ def display_cube(cube):
 def display_app():
     
     # Containers for right menu 
-    
+    global atom_meshes
    
     top_container = HBox([dropdown, in_app_exit])
     
@@ -96,13 +101,21 @@ def display_app():
     
     
     elif selected_option == 'Mesh Options':
-        #display Mesh TO DO 
+        #display Mesh TO DO
+        atom_controls = []
+        for mesh in atom_meshes:
+            controls = [mesh_visibility_toggle(mesh, 'Visible'),
+                    atom_color_picker(mesh, 'Color'),
+                    atom_scale_slider(mesh, 'Scale')]
+            atom_controls.append(VBox(children=controls))
+        titles = tuple(f'Atom {idx}' for idx in range(len(atom_controls)))
         with selected_view_options:
             selected_view_options.clear_output()
-            
+            accordion = Accordion(children=atom_controls, titles=titles)
+            mesh_box = VBox([accordion])
+            display(mesh_box)
         
-     
-        
+
     
     
     elif selected_option == 'Color Options':
