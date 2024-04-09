@@ -94,6 +94,7 @@ def plot_bonds(cube: Cube):
     Plots the bonds between atoms in the current Cube object, using the list of atom pairs, 
     and the positions of the atoms in the graph.
     '''
+    cube.get_bonds()
     num_pts = 1000
     for bond in cube.bonds:
         atomPos1 = cube.atoms.get_scaled_positions()[bond[0]]
