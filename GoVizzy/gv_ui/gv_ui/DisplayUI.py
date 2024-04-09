@@ -3,7 +3,7 @@ from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Lay
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 from gv_ui import plotting, meshes, gvWidgets
-from gv_ui.gvWidgets import mesh_visibility_toggle, atom_color_picker
+from gv_ui.gvWidgets import mesh_visibility_toggle, atom_color_picker, atom_scale_slider
 from IPython.display import display
 
 # Define globals
@@ -57,7 +57,6 @@ def show_ui():
 def display_cube(cube):
     global atom_meshes
     visualizer = plotting.Visualizer(cube)
-    global atom_meshes
     with large_box:  # Capture output within large_box
         # Clear previous content
         large_box.clear_output()
@@ -106,7 +105,8 @@ def display_app():
         atom_controls = []
         for mesh in atom_meshes:
             controls = [mesh_visibility_toggle(mesh, 'Visible'),
-                    atom_color_picker(mesh, 'Color')]
+                    atom_color_picker(mesh, 'Color'),
+                    atom_scale_slider(mesh, 'Scale')]
             atom_controls.append(VBox(children=controls))
         titles = tuple(f'Atom {idx}' for idx in range(len(atom_controls)))
         with selected_view_options:
