@@ -88,3 +88,14 @@ def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, 
         mesh = plot_sphere_surface((x, y, z), sizes.get(number, default_size), colors.get(number, default_color))
         atom_meshes.append(mesh)
     return atom_meshes
+
+def plot_bonds(cube: Cube):
+    '''
+    Plots the bonds between atoms in the current Cube object, using the list of atom pairs, 
+    and the positions of the atoms in the graph.
+    '''
+    for bond in cube.bonds:
+        print("Atoms: ",bond," Real Pos: ", )
+        for atom in bond:
+            print(cube.atoms.get_scaled_positions()[atom])
+            

@@ -178,7 +178,7 @@ class Cube:
         g.gen_adj_matrix(do_mic=do_mic)
         nat = len(self.atoms)
         self.bonds = tuple([(i, j) for i in range(nat)
-                           for j in range(i) if g.graph[i, j] == 1])
+            for j in range(i) if g.graph[i, j] == 1])
 
     def get_polyhedra(self, do_mic=True):
         """
