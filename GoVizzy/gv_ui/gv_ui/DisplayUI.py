@@ -3,7 +3,7 @@ from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Lay
 import ipyvolume as ipv
 import matplotlib.pyplot as plt
 from gv_ui import plotting, meshes, gvWidgets
-from gv_ui.gvWidgets import mesh_visibility_toggle, atom_color_picker, atom_scale_slider
+from gv_ui.gvWidgets import mesh_visibility_toggle, atom_color_picker, atom_scale_slider, bond_visibility_toggle, bond_color_picker, bond_scale_slider
 from IPython.display import display
 
 # Define globals
@@ -110,11 +110,16 @@ def display_app():
                     atom_scale_slider(mesh, 'Scale')]
             atom_controls.append(VBox(children=controls))
         titles = tuple(f'Atom {idx}' for idx in range(len(atom_controls)))
+        
+        print(atom_controls)
+        print(titles)
+        
         with selected_view_options:
             selected_view_options.clear_output()
             accordion = Accordion(children=atom_controls, titles=titles)
-            mesh_box = VBox([accordion])
+            mesh_box = VBox([accordion, gvWidgets.bond_visibility_toggle, gvWidgets.bond_color_picker, gvWidgets.bond_scale_slider])
             display(mesh_box)
+            
         
 
     
