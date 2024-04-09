@@ -94,8 +94,20 @@ def plot_bonds(cube: Cube):
     Plots the bonds between atoms in the current Cube object, using the list of atom pairs, 
     and the positions of the atoms in the graph.
     '''
+    num_pts = 1000
     for bond in cube.bonds:
-        print("Atoms: ",bond," Real Pos: ", )
-        for atom in bond:
-            print(cube.atoms.get_scaled_positions()[atom])
+        atomPos1 = cube.atoms.get_scaled_positions()[bond[0]]
+        x1, y1, z1 = tuple(p * cube.data3D.shape[idx] / Bohr for idx, p in enumerate(atomPos1))
+        atomPos2 = cube.atoms.get_scaled_positions()[bond[1]]
+        x2, y2, z2 = tuple(p * cube.data3D.shape[idx] / Bohr for idx, p in enumerate(atomPos2))
+        
+        # y = x1 -> x2
+        # y = y1 -> y2
+        # z = z1 -> z2
+        X = np.linspace(x1, x2, num_pts)
+        Y = np.linspace(y1, y2, num_pts)
+        Z = np.linspace(z1, z2, num_pts)
+        p = ipv.plot(X, Y, Z)
+        p.material.visible = True
+        p.size = 3.
             
