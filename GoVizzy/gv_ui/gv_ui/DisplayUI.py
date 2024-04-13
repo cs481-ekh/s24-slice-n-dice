@@ -1,3 +1,7 @@
+"""
+This module provides functionality to display output widgets for GoVizzy.
+"""
+
 import ipywidgets as widgets
 from ipywidgets import Dropdown, VBox, HBox, Output, ColorPicker, AppLayout, Layout, Label, Button, Checkbox, link, Accordion
 import ipyvolume as ipv
@@ -24,8 +28,11 @@ save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px s
 # atom mesh globals
 atom_meshes = []
 
-# Displays logo and hides the app output
 def show_menu():
+    """
+    Displays logo and hides the app output.
+    """
+
     exit_button.layout.visibility = 'visible'
     selected_view_options.layout.visibility = 'hidden'
     dropdown.layout.visibility = 'hidden'
@@ -46,7 +53,10 @@ def show_menu():
    # display_app()
 
 def show_ui():
-    
+    """
+    Sets the visibility of the GoVizzy output widgets to visible.
+    """
+
     large_box.layout.visibility = 'visible'
     selected_view_options.layout.visibility = 'visible'
     dropdown.layout.visibility = 'visible'
@@ -55,6 +65,10 @@ def show_ui():
     newCube_button.layout.visibility = 'visible'
 
 def display_cube(cube):
+    """
+    Displays the cube plot based on the value of the dropdown.
+    """
+
     global atom_meshes
     visualizer = plotting.Visualizer(cube)
     with large_box:  # Capture output within large_box
@@ -82,7 +96,10 @@ def display_cube(cube):
 
 
 def display_app():
-    
+    """
+    Displays the ipvolume.Figure and sets the sidebar options.
+    """
+
     # Containers for right menu 
     global atom_meshes
    
@@ -151,6 +168,10 @@ display_app()
 
 
 def clear_all_outputs():
+    """
+    Clears the output of the GoVizzy widgets and sets their visibilities to 
+    hidden.
+    """
     large_box.clear_output()
     selected_view_options.clear_output()
     slice_picker.clear_output()
@@ -168,6 +189,10 @@ def clear_all_outputs():
         display(exit_message)
     
 def handle_dropdown_change(change, cube):
+    """
+    Sets the selected option to the value of the dropdown.
+    """
+
     global selected_option
     selected_option = change.new
     
