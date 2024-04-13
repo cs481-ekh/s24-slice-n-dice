@@ -89,6 +89,11 @@ bond_scale_slider = BoundedFloatText(
 )
 
 def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
+    """
+    Returns an ipywidget.Checkbox with the provided description and links the
+    value to the provided mesh visibility.
+    """
+
     toggle = Checkbox(value=True, description=description)
     link((toggle, 'value'), (mesh, 'visible'))
     return toggle
@@ -96,12 +101,22 @@ def mesh_visibility_toggle(mesh: Mesh, description: str="Atom"):
 color = ColorPicker(concise=True, value='white', description='Color', disabled=False, layout=Layout(flex='1 1 0%', width='auto'))
 
 def atom_color_picker(atom: Mesh, description: str="Color"):
+    """
+    Returns an ipywidget.ColorPicker with the provided description and links the
+    value to the provided mesh color.
+    """
+
     picker = ColorPicker(value=str(atom.color), description=description)
     link((picker, 'value'), (atom, 'color'))
     return picker
 
 
 def scale_atom_mesh(atom: Mesh, points: tuple[list, list, list], origin: tuple[float, float, float], scale: float):
+    """
+    Scales the size of the original atom size by the scaling factor. Sets the
+    scaled values to the provided atom.
+    """
+
     x, y, z = points
     origin_x, origin_y, origin_z = origin
     scaled_x = (x - origin_x) * scale + origin_x
@@ -110,6 +125,11 @@ def scale_atom_mesh(atom: Mesh, points: tuple[list, list, list], origin: tuple[f
     atom.x, atom.y, atom.z = scaled_x, scaled_y, scaled_z
 
 def atom_scale_slider(atom: Mesh, description: str="Scale"):
+    """
+    Returns an ipywidget.BoundedFloatText with the provided description and
+    links the value to a function which adjusts the scale of the atom.
+    """
+
     slider = BoundedFloatText(
         value=1,
         min=0,
