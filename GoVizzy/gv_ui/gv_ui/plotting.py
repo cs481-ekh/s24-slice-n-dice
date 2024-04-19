@@ -133,7 +133,6 @@ class Visualizer:
         fig, ax = plt.subplots()
 
         def update(w = 70):
-            print(cube.data3D[w][0][0])
             ax.imshow(cube.data3D[w])
             plt.show()
 
