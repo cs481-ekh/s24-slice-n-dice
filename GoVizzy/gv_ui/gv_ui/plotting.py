@@ -127,7 +127,7 @@ class Visualizer:
         widgets.jslink((gvWidgets.slice_z_check, 'value'), (slice_z, 'visible'))
         
         ipv.show()
-                
+        
         plt.style.use('_mpl-gallery-nogrid')
 
         fig, ax = plt.subplots()
