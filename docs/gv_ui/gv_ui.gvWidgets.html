@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module gv_ui.gvWidgets</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="gv_ui.html" class="white">gv_ui</a>.gvWidgets</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="../../GoVizzy/gv_ui/gv_ui/gvWidgets.py">gv_ui/gv_ui/gvWidgets.py</a></td></tr></table>
+    <p><span class="code">This&nbsp;File&nbsp;is&nbsp;for&nbsp;widgets&nbsp;used&nbsp;by&nbsp;GoVizzy<br>
+Input&nbsp;form:&nbsp;widget&nbsp;for&nbsp;uploading&nbsp;a&nbsp;.cube&nbsp;file<br>
+Documentation&nbsp;for&nbsp;widget&nbsp;library:&nbsp;<a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload">https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload</a></span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn">numpy<br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-atom_color_picker"><strong>atom_color_picker</strong></a>(atom: ipyvolume.widgets.Mesh, description: str = 'Color')</dt><dd><span class="code">Returns&nbsp;an&nbsp;ipywidget.ColorPicker&nbsp;with&nbsp;the&nbsp;provided&nbsp;description&nbsp;and&nbsp;links&nbsp;the<br>
+value&nbsp;to&nbsp;the&nbsp;provided&nbsp;mesh&nbsp;color.</span></dd></dl>
+ <dl><dt><a name="-atom_scale_slider"><strong>atom_scale_slider</strong></a>(atom: ipyvolume.widgets.Mesh, description: str = 'Scale')</dt><dd><span class="code">Returns&nbsp;an&nbsp;ipywidget.BoundedFloatText&nbsp;with&nbsp;the&nbsp;provided&nbsp;description&nbsp;and<br>
+links&nbsp;the&nbsp;value&nbsp;to&nbsp;a&nbsp;function&nbsp;which&nbsp;adjusts&nbsp;the&nbsp;scale&nbsp;of&nbsp;the&nbsp;atom.</span></dd></dl>
+ <dl><dt><a name="-mesh_visibility_toggle"><strong>mesh_visibility_toggle</strong></a>(mesh: ipyvolume.widgets.Mesh, description: str = 'Atom')</dt><dd><span class="code">Returns&nbsp;an&nbsp;ipywidget.Checkbox&nbsp;with&nbsp;the&nbsp;provided&nbsp;description&nbsp;and&nbsp;links&nbsp;the<br>
+value&nbsp;to&nbsp;the&nbsp;provided&nbsp;mesh&nbsp;visibility.</span></dd></dl>
+ <dl><dt><a name="-scale_atom_mesh"><strong>scale_atom_mesh</strong></a>(atom: ipyvolume.widgets.Mesh, points: tuple[list, list, list], origin: tuple[float, float, float], scale: float)</dt><dd><span class="code">Scales&nbsp;the&nbsp;size&nbsp;of&nbsp;the&nbsp;original&nbsp;atom&nbsp;size&nbsp;by&nbsp;the&nbsp;scaling&nbsp;factor.&nbsp;Sets&nbsp;the<br>
+scaled&nbsp;values&nbsp;to&nbsp;the&nbsp;provided&nbsp;atom.</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>bond_color_picker</strong> = ColorPicker(value='black', description='Bond Color')<br>
+<strong>bond_scale_slider</strong> = BoundedFloatText(value=3.0, description='Bond Scale', max=10.0, step=0.01)<br>
+<strong>bond_visibility_toggle</strong> = Checkbox(value=True, description='Bond Visibility')<br>
+<strong>color</strong> = ColorPicker(value='white', concise=True, descrip...lor', layout=Layout(flex='1 1 0%', width='auto'))<br>
+<strong>form</strong> = Box(children=(Box(children=(Label(value='Path to...', display='flex', flex_flow='row', width='50%'))<br>
+<strong>form_item_layout</strong> = Layout(display='flex', flex_flow='row', justify_content='space-between')<br>
+<strong>form_items</strong> = [Box(children=(Label(value='Path to .cube file'),...lex_flow='row', justify_content='space-between')), ColorPicker(value='white', concise=True, descrip...lor', layout=Layout(flex='1 1 0%', width='auto')), Button(description='Submit', layout=Layout(flex='1 1 0%', width='auto'), style=ButtonStyle()), FloatSlider(value=0.0, description='X Pos', max=120.0, readout_format='.1f')]<br>
+<strong>slice_x_check</strong> = Checkbox(value=False, description='X Toggle')<br>
+<strong>slice_x_slider</strong> = FloatSlider(value=0.0, description='X Pos', max=120.0, readout_format='.1f')<br>
+<strong>slice_y_check</strong> = Checkbox(value=False, description='Y Toggle')<br>
+<strong>slice_y_slider</strong> = FloatSlider(value=0.0, description='Y Pos', max=120.0, readout_format='.1f')<br>
+<strong>slice_z_check</strong> = Checkbox(value=False, description='Z Toggle')<br>
+<strong>slice_z_slider</strong> = FloatSlider(value=0.0, description='Z Pos', max=120.0, readout_format='.1f')</td></tr></table>
+</body></html>

@@ -54,11 +54,11 @@ default_colors = {
 }
 
 def plot_sphere_surface(origin: tuple[int, int, int]=(0, 0, 0), radius: int=1, color: str="red"):
-    '''
+    """
     Plots on an existing ipyvolume figure the surface of a sphere. By default
     the sphere is located at the origin (0, 0, 0) with a radius of 1 and color
     "red".
-    '''
+    """
     x_origin, y_origin, z_origin = origin
     step = 0.1
     gridx, gridy = np.ix_(np.arange(0, np.pi + step, step), np.arange(0, 2 * np.pi + step, step))
@@ -74,10 +74,10 @@ def plot_sphere_surface(origin: tuple[int, int, int]=(0, 0, 0), radius: int=1, c
     return ipv.plot_surface(x, z, y, color=color)
 
 def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, str]=default_colors):
-    '''
+    """
     Plots the atoms from a provided Cube object using the sizes and colors in
     the provided dicts. The keys are the atomic number of the atoms in the cell.
-    '''
+    """
     default_color = "red"
     default_size = 10
     atom_meshes = []
@@ -90,10 +90,10 @@ def plot_atoms(cube: Cube, sizes: dict[int, int]=vanderwaals, colors: dict[int, 
     return atom_meshes
 
 def plot_bonds(cube: Cube, size: int=3., color: int="black"):
-    '''
+    """
     Plots the bonds between atoms in the current Cube object, using the list of atom pairs, 
     and the positions of the atoms in the graph.
-    '''
+    """
     cube.get_bonds()
     num_pts = 1000
     
