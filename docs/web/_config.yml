@@ -1,0 +1,6 @@
+title: GoVizzy
+logo: gv.png
+description: GoVizzy is a program that generates interactive 3D renderings and 2D slices of molecules.
+remote_theme: pages-themes/minimal@v0.2.0
+plugins:
+- jekyll-remote-theme
