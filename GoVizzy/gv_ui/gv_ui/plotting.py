@@ -4,6 +4,7 @@ import ipywidgets as widgets
 import ipyvolume as ipv
 from IPython.display import display
 from gv_ui import gvWidgets
+import matplotlib.pyplot as plt
 
 class Visualizer:
     """
@@ -127,3 +128,12 @@ class Visualizer:
         
         ipv.show()
         
+        plt.style.use('_mpl-gallery-nogrid')
+
+        fig, ax = plt.subplots()
+
+        def update(w = 70):
+            ax.imshow(cube.data3D[w])
+            plt.show()
+
+        widgets.interact(update, w=widgets.IntSlider(min=0, max=119, step=1, value=70))

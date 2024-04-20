@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module gv_ui.DisplayUI</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title"><a href="gv_ui.html" class="white">gv_ui</a>.DisplayUI</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="../../GoVizzy/gv_ui/gv_ui/DisplayUI.py">gv_ui/gv_ui/DisplayUI.py</a></td></tr></table>
+    <p><span class="code">This&nbsp;module&nbsp;provides&nbsp;functionality&nbsp;to&nbsp;display&nbsp;output&nbsp;widgets&nbsp;for&nbsp;GoVizzy.</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="gv_ui.gvWidgets.html">gv_ui.gvWidgets</a><br>
+ipyvolume<br>
+</td><td class="multicolumn"><a href="gv_ui.meshes.html">gv_ui.meshes</a><br>
+<a href="gv_ui.plotting.html">gv_ui.plotting</a><br>
+</td><td class="multicolumn">matplotlib.pyplot<br>
+ipywidgets<br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-clear_all_outputs"><strong>clear_all_outputs</strong></a>()</dt><dd><span class="code">Clears&nbsp;the&nbsp;output&nbsp;of&nbsp;the&nbsp;GoVizzy&nbsp;widgets&nbsp;and&nbsp;sets&nbsp;their&nbsp;visibilities&nbsp;to&nbsp;<br>
+hidden.</span></dd></dl>
+ <dl><dt><a name="-display_app"><strong>display_app</strong></a>()</dt><dd><span class="code">Displays&nbsp;the&nbsp;ipvolume.Figure&nbsp;and&nbsp;sets&nbsp;the&nbsp;sidebar&nbsp;options.</span></dd></dl>
+ <dl><dt><a name="-display_cube"><strong>display_cube</strong></a>(cube)</dt><dd><span class="code">Displays&nbsp;the&nbsp;cube&nbsp;plot&nbsp;based&nbsp;on&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;dropdown.</span></dd></dl>
+ <dl><dt><a name="-handle_dropdown_change"><strong>handle_dropdown_change</strong></a>(change, cube)</dt><dd><span class="code">Sets&nbsp;the&nbsp;selected&nbsp;option&nbsp;to&nbsp;the&nbsp;value&nbsp;of&nbsp;the&nbsp;dropdown.</span></dd></dl>
+ <dl><dt><a name="-show_menu"><strong>show_menu</strong></a>()</dt><dd><span class="code">Displays&nbsp;logo&nbsp;and&nbsp;hides&nbsp;the&nbsp;app&nbsp;output.</span></dd></dl>
+ <dl><dt><a name="-show_ui"><strong>show_ui</strong></a>()</dt><dd><span class="code">Sets&nbsp;the&nbsp;visibility&nbsp;of&nbsp;the&nbsp;GoVizzy&nbsp;output&nbsp;widgets&nbsp;to&nbsp;visible.</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>atom_meshes</strong> = []<br>
+<strong>bond_color_picker</strong> = ColorPicker(value='black', description='Bond Color')<br>
+<strong>bond_scale_slider</strong> = BoundedFloatText(value=3.0, description='Bond Scale', max=10.0, step=0.01)<br>
+<strong>bond_visibility_toggle</strong> = Checkbox(value=True, description='Bond Visibility')<br>
+<strong>dropdown</strong> = Dropdown(layout=Layout(margin='5px 0 0 5px'), op...Options', 'Mesh Options'), value='Slice Options')<br>
+<strong>exit_button</strong> = Button(button_style='danger', description='[X]',...Layout(margin='0 0 0 auto'), style=ButtonStyle())<br>
+<strong>in_app_exit</strong> = Button(button_style='danger', description='[X]', style=ButtonStyle())<br>
+<strong>large_box</strong> = Output(layout=Layout(height='100%', width='70%'))<br>
+<strong>newCube_button</strong> = Button(description='New Cube', layout=Layout(bor...1px solid black', flex='1'), style=ButtonStyle())<br>
+<strong>options</strong> = ['Slice Options', 'Mesh Options']<br>
+<strong>save_button</strong> = Button(description='Save', layout=Layout(border_...1px solid black', flex='1'), style=ButtonStyle())<br>
+<strong>selected_option</strong> = 'Slice Options'<br>
+<strong>selected_view_options</strong> = Output(layout=Layout(height='300px', width='auto'))<br>
+<strong>slice_picker</strong> = Output(layout=Layout(border_bottom='1px solid bl... black', border_top='1px solid black', flex='1'))<br>
+<strong>slice_picker_descr</strong> = Label(value='Slice Picker', layout=Layout(margin='5px 0 0 5px'))</td></tr></table>
+</body></html>
