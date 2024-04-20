@@ -8,7 +8,7 @@ GoVizzy will work on any system with a supported version on Python and Pip insta
 Simply run the build.sh script, which will install all dependencies in a virtual environment, and launch GoVizzy.
 
 ## Documentation
-All of the documentation for GoVizzy can be found in the docs directory. See the [intro page](docs/intro.md).
+All of the documentation for GoVizzy can be found in the docs/manual directory. See the [intro page](docs/manual/intro.md).
 
 ## Testing
 
