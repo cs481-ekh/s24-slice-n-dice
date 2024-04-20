@@ -130,10 +130,15 @@ class Visualizer:
         
         plt.style.use('_mpl-gallery-nogrid')
 
-        fig, ax = plt.subplots()
+        fig, (xSlice, ySlice, zSlice) = plt.subplots(1, 3)
 
-        def update(w = 70):
-            ax.imshow(cube.data3D[w])
+        # Slice order is different to match ipyvolume, which plots the volume in a y-up orientation
+        def update(x = 0, y = 0, z = 0):
+            xSlice.imshow(cube.data3D[:, :, x])
+            ySlice.imshow(cube.data3D[:, y, :])
+            zSlice.imshow(cube.data3D[z, :, :])
             plt.show()
 
-        widgets.interact(update, w=widgets.IntSlider(min=0, max=119, step=1, value=70))
+        widgets.interact(update, x=widgets.IntSlider(min=0, max=119, step=1, value=0), 
+                         y=widgets.IntSlider(min=0, max=119, step=1, value=0), 
+                         z=widgets.IntSlider(min=0, max=119, step=1, value=0))
