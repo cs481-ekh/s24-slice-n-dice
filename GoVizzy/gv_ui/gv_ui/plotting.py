@@ -111,6 +111,7 @@ class Visualizer:
         fig = ipv.figure()
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
         ipv.style.background_color(gvWidgets.color.value)
+        
         volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
         
         # Create planes, with textures set to the volume info        
@@ -139,6 +140,7 @@ class Visualizer:
             zSlice.imshow(cube.data3D[z, :, :])
             plt.show()
 
-        widgets.interact(update, x=widgets.IntSlider(min=0, max=119, step=1, value=0), 
-                         y=widgets.IntSlider(min=0, max=119, step=1, value=0), 
-                         z=widgets.IntSlider(min=0, max=119, step=1, value=0))
+        out = widgets.interactive_output(update, {'x':gvWidgets.slice_x_slider, 
+                         'y':gvWidgets.slice_y_slider, 
+                         'z':gvWidgets.slice_z_slider})
+        display(out)

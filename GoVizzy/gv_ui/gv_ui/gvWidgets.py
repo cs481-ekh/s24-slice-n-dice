@@ -3,7 +3,7 @@
     Documentation for widget library: https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload
 '''
 from IPython.display import display
-from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link, BoundedFloatText
+from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link, BoundedFloatText, IntSlider
 from ipyvolume.widgets import Mesh, Scatter
 import numpy as np
 
@@ -16,34 +16,34 @@ form_item_layout = Layout(
 )
 
 
-slice_x_slider = FloatSlider(
+slice_x_slider = IntSlider(
     value=0,
     min=0,
-    max=120,
-    step=0.1,
+    max=119,
+    step=1,
     description='X Pos',
     readout=True,
-    readout_format='.1f'
+    readout_format='d'
 )
 
-slice_y_slider = FloatSlider(
+slice_y_slider = IntSlider(
     value=0,
     min=0,
-    max=120,
-    step=0.1,
+    max=119,
+    step=1,
     description='Y Pos',
     readout=True,
-    readout_format='.1f'
+    readout_format='d'
 )
 
-slice_z_slider = FloatSlider(
+slice_z_slider = IntSlider(
     value=0,
     min=0,
-    max=120,
-    step=0.1,
+    max=119,
+    step=1,
     description='Z Pos',
     readout=True,
-    readout_format='.1f'
+    readout_format='d'
 )
 
 slice_x_check = Checkbox(
