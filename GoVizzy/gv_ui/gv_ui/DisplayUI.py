@@ -28,6 +28,9 @@ save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px s
 # atom mesh globals
 atom_meshes = []
 
+# visualizer global
+visualizer = None
+
 def show_menu():
     """
     Displays logo and hides the app output.
@@ -69,7 +72,7 @@ def display_cube(cube):
     Displays the cube plot based on the value of the dropdown.
     """
 
-    global atom_meshes
+    global atom_meshes, visualizer
     visualizer = plotting.Visualizer(cube)
     with large_box:  # Capture output within large_box
         # Clear previous content
@@ -101,58 +104,61 @@ def display_app():
     """
 
     # Containers for right menu 
-    global atom_meshes
-   
+    global atom_meshes, visualizer
     top_container = HBox([dropdown, in_app_exit])
-    
     bottom_container = HBox([newCube_button, save_button])
    
-    # Combine the Output widgets with their descriptions
-    if selected_option == 'Slice Options':
-        #display slidersss TO DO 
-        with selected_view_options:
-            selected_view_options.clear_output()
-            slice_box = VBox([slice_picker_descr, gvWidgets.slice_x_slider, gvWidgets.slice_x_check, gvWidgets.slice_y_slider, gvWidgets.slice_y_check, gvWidgets.slice_z_slider, gvWidgets.slice_z_check])
+    with selected_view_options:
+        selected_view_options.clear_output()
+        figure_controls = visualizer.figure.volumes[0].tf.control()
+        # Combine the Output widgets with their descriptions
+        if selected_option == 'Slice Options':
+            #display slidersss TO DO 
+            slice_box = VBox([slice_picker_descr,
+                              gvWidgets.slice_x_slider,
+                              gvWidgets.slice_x_check,
+                              gvWidgets.slice_y_slider,
+                              gvWidgets.slice_y_check,
+                              gvWidgets.slice_z_slider,
+                              gvWidgets.slice_z_check,
+                              figure_controls])
             display(slice_box)
-        
-        
-    
-    
-    elif selected_option == 'Mesh Options':
-        #display Mesh TO DO
-        atom_controls = []
-        for mesh in atom_meshes:
-            controls = [mesh_visibility_toggle(mesh, 'Visible'),
-                    atom_color_picker(mesh, 'Color'),
-                    atom_scale_slider(mesh, 'Scale')]
-            atom_controls.append(VBox(children=controls))
-        titles = tuple(f'Atom {idx}' for idx in range(len(atom_controls)))
-        
-        print(atom_controls)
-        print(titles)
-        
-        with selected_view_options:
-            selected_view_options.clear_output()
-            accordion = Accordion(children=atom_controls, titles=titles)
-            mesh_box = VBox([accordion, gvWidgets.bond_visibility_toggle, gvWidgets.bond_color_picker, gvWidgets.bond_scale_slider])
-            display(mesh_box)
+            
             
         
+        
+        elif selected_option == 'Mesh Options':
+            #display Mesh TO DO
+            atom_controls = []
+            for mesh in atom_meshes:
+                controls = [mesh_visibility_toggle(mesh, 'Visible'),
+                        atom_color_picker(mesh, 'Color'),
+                        atom_scale_slider(mesh, 'Scale')]
+                atom_controls.append(VBox(children=controls))
+            titles = tuple(f'Atom {idx}' for idx in range(len(atom_controls)))
+            
+            accordion = Accordion(children=atom_controls, titles=titles)
+            mesh_box = VBox([accordion,
+                             gvWidgets.bond_visibility_toggle,
+                             gvWidgets.bond_color_picker,
+                             gvWidgets.bond_scale_slider,
+                             figure_controls])
+            display(mesh_box)
+                
+            
 
-    
-    
-    elif selected_option == 'Color Options':
-        #ADD color controls here 
-        with selected_view_options:
-            selected_view_options.clear_output()
         
         
-    
-    
-    
-    else:
+        elif selected_option == 'Color Options':
+            #ADD color controls here 
+            pass
+            
+        
+        
+        
+        else:
             print("Invalid option selected")
-    
+
     # Display the layout
     view_bar = VBox([top_container, selected_view_options, bottom_container], layout=Layout(flex='1'))
        

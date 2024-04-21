@@ -5,6 +5,7 @@ import ipyvolume as ipv
 from IPython.display import display
 from gv_ui import gvWidgets
 import matplotlib.pyplot as plt
+from ipyvolume import Figure
 
 class Visualizer:
     """
@@ -15,6 +16,7 @@ class Visualizer:
     """
 
     cube: Cube
+    figure: Figure
 
     def __init__(self, cube: Cube):
         self.cube = cube
@@ -96,7 +98,7 @@ class Visualizer:
         Displays the cube's data3D with the volshow() method.
         """
         cube = self.cube
-        ipv.figure()
+        self.figure = ipv.figure()
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
         ipv.style.background_color(gvWidgets.color.value)
         ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
@@ -108,7 +110,7 @@ class Visualizer:
         and attach slices with textures set to the volume data. 
         """
         cube = self.cube
-        fig = ipv.figure()
+        self.figure = ipv.figure()
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
         ipv.style.background_color(gvWidgets.color.value)
         volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
