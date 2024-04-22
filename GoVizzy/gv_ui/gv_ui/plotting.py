@@ -114,12 +114,25 @@ class Visualizer:
         transfer = ipv.pylab.transfer_function(level=[0.03, 0.5, 0.47], opacity=[0.05, 0.09, 0.1], level_width=0.1, controls=False)
         ipv.style.background_color(gvWidgets.color.value)
         
-        volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False)
+        xLen = len(cube.data3D[0][0])
+        yLen = len(cube.data3D[0])
+        zLen = len(cube.data3D)
+        
+        ipv.pylab.xlim(0, xLen)
+        ipv.pylab.ylim(0, yLen)
+        ipv.pylab.zlim(0, zLen)
+        
+        volume = ipv.pylab.volshow(cube.data3D, ambient_coefficient=0.8, lighting=True, tf=transfer, controls=False, extent=[[0, xLen], [0, yLen], [0, zLen]])
         
         # Create planes, with textures set to the volume info        
         slice_x = ipv.plot_plane('x', volume=volume, description="Slice X", description_color="black", icon="mdi-knife", x_offset=70)
         slice_y = ipv.plot_plane('y', volume=volume, description="Slice Y", description_color="black", icon="mdi-knife", y_offset=70)
         slice_z = ipv.plot_plane('z', volume=volume, description="Slice Z", description_color="black", icon="mdi-knife", z_offset=70)
+        
+        #Set slider max to cube
+        gvWidgets.slice_x_slider.max = xLen-1
+        gvWidgets.slice_y_slider.max = yLen-1
+        gvWidgets.slice_z_slider.max = zLen-1
         
         widgets.jslink((gvWidgets.slice_x_slider, 'value'), (slice_x, 'x_offset'))
         widgets.jslink((gvWidgets.slice_y_slider, 'value'), (slice_y, 'y_offset'))
