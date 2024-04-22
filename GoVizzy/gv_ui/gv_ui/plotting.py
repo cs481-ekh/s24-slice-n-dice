@@ -150,9 +150,9 @@ class Visualizer:
 
         # Slice order is different to match ipyvolume, which plots the volume in a y-up orientation
         def update(x = 0, y = 0, z = 0):
-            xSlice.imshow(cube.data3D[:, :, x])
-            ySlice.imshow(cube.data3D[:, y, :])
-            zSlice.imshow(cube.data3D[z, :, :])
+            xSlice.imshow(cube.data3D[:, :, x], cmap='gray',)
+            ySlice.imshow(cube.data3D[:, y, :], cmap='gray',)
+            zSlice.imshow(cube.data3D[z, :, :], cmap='gray',)
             plt.show()
 
         out = widgets.interactive_output(update, {'x':gvWidgets.slice_x_slider, 
