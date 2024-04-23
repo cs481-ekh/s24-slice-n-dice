@@ -15,7 +15,7 @@ selected_option ='Slice Options'
 options = ['Slice Options', 'Mesh Options'] 
 dropdown = Dropdown(options=options, value=options[0], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
-selected_view_options = Output(layout=Layout(width="auto", height="auto"))
+selected_view_options = Output(layout=Layout(width="auto"))
 slice_picker = Output(layout=Layout(flex= '1',border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
 exit_button = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
