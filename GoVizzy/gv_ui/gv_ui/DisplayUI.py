@@ -21,7 +21,7 @@ slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5
 exit_button = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
 exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
 in_app_exit = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
-
+spacer = Output( layout=Layout(flex= '1'))
 newCube_button = Button(description='New Cube', layout=Layout(flex= '1',  border='1px solid black'))
 save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px solid black'))
 
@@ -122,7 +122,7 @@ def display_app():
                               gvWidgets.slice_z_slider,
                               gvWidgets.slice_z_check,
                               gvWidgets.slice_color,
-                              figure_controls,])
+                              figure_controls])
             display(slice_box)
             
             
@@ -143,7 +143,8 @@ def display_app():
                              gvWidgets.bond_visibility_toggle,
                              gvWidgets.bond_color_picker,
                              gvWidgets.bond_scale_slider,
-                             figure_controls])
+                             figure_controls,
+                             spacer])
             display(mesh_box)
                 
         
