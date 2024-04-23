@@ -22,7 +22,7 @@ exit_button = widgets.Button(description='[X]', button_style='danger',border='1p
 exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
 in_app_exit = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
 spacer = Output( layout=Layout(flex= '1'))
-newCube_button = Button(description='New Cube', layout=Layout(flex= '1',  border='1px solid black'))
+newCube_button = Button(description='New Cube', layout=Layout(width = 'auto',  border='1px solid black'))
 save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px solid black'))
 
 # atom mesh globals
