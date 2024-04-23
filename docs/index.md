@@ -28,18 +28,18 @@ Data is entered into GoVizzy in the standard .cube file format. The user is firs
 the slicing screen. This screen shows the 3D render of their .cube data, which can be interacted
 with in real time.
 
-image
+![slicing screen](slice1.png "Slicing Screen")
 
 The user can then create and view 2D slices of the data. A slice plane exists for each axis, and
 each plane's visibility and location can be toggled individually. A set of three plots show the
 selected slice on each axis.
 
-image
+![slicing screen](slice2.png "Slicing Screen")
 
 GoVizzy also supports mesh renderings of .cube files. In mesh mode, each individual atom can have
 its visibility and color set; chemical bonds are also configurable in the same way.
 
-image
+![mesh screen](mesh.png "Mesh Screen")
 
 ## Manual
 
