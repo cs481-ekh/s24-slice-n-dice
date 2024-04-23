@@ -122,7 +122,8 @@ def display_app():
                               gvWidgets.slice_z_slider,
                               gvWidgets.slice_z_check,
                               gvWidgets.slice_color,
-                              figure_controls])
+                              figure_controls,
+                              newCube_button])
             display(slice_box)
             
             
@@ -144,7 +145,7 @@ def display_app():
                              gvWidgets.bond_color_picker,
                              gvWidgets.bond_scale_slider,
                              figure_controls,
-                             spacer])
+                             newCube_button])
             display(mesh_box)
                 
         
@@ -154,7 +155,7 @@ def display_app():
 
     # Display the layout
     button_container = VBox([newCube_button], layout=Layout(justify_content='flex-end'))
-    view_bar = VBox([top_container, selected_view_options, newCube_button], 
+    view_bar = VBox([top_container, selected_view_options], 
                 layout=Layout(flex='1'))
        
     display_box = HBox([large_box, view_bar])
