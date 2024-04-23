@@ -30,7 +30,7 @@ def handle_submit_button_clicked(b):
             print(f"Source file found: {source_path}")
             unique_file_name = fileInput.generate_unique_filename(fileName, directory)
             destination_path = os.path.join(directory, unique_file_name)
-            success = fileInput.copy_file(source_path, destination_path)
+           
             if success:
                 new_cube = cv.Cube()
                 new_cube.load_cube(destination_path)
