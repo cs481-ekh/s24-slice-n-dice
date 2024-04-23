@@ -12,7 +12,7 @@ from IPython.display import display
 
 # Define globals
 selected_option ='Slice Options'
-options = ['Slice Options', 'Mesh Options'] #, 'Color Options']
+options = ['Slice Options', 'Mesh Options'] 
 dropdown = Dropdown(options=options, value=options[0], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
 selected_view_options = Output(layout=Layout(width="auto", height="300px"))
@@ -106,7 +106,7 @@ def display_app():
     # Containers for right menu 
     global atom_meshes, visualizer
     top_container = HBox([dropdown, in_app_exit])
-    bottom_container = HBox([newCube_button, save_button])
+    bottom_container = HBox([newCube_button])
    
     with selected_view_options:
         selected_view_options.clear_output()
@@ -146,22 +146,13 @@ def display_app():
                              figure_controls])
             display(mesh_box)
                 
-            
-
-        
-        
-        elif selected_option == 'Color Options':
-            #ADD color controls here 
-            pass
-            
-        
         
         
         else:
             print("Invalid option selected")
 
     # Display the layout
-    view_bar = VBox([top_container, selected_view_options, bottom_container], layout=Layout(flex='1'))
+    view_bar = VBox([top_container, selected_view_options, bottom_container], layout=Layout(flex='1', height='500px'))
        
     display_box = HBox([large_box, view_bar])
     app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,
