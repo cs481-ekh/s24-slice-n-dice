@@ -154,7 +154,7 @@ def display_app():
 
     # Display the layout
     view_bar = VBox([top_container, selected_view_options, bottom_container_vbox], 
-                layout=Layout(flex='1', height='500px'))
+                layout=Layout(flex='1', height='700px'))
        
     display_box = HBox([large_box, view_bar])
     app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,
