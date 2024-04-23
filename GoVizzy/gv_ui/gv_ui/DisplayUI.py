@@ -154,7 +154,7 @@ def display_app():
 
     # Display the layout
     button_container = VBox([newCube_button], layout=Layout(justify_content='flex-end'))
-    view_bar = VBox([top_container, selected_view_options, button_container], 
+    view_bar = VBox([top_container, selected_view_options, newCube_button], 
                 layout=Layout(flex='1'))
        
     display_box = HBox([large_box, view_bar])

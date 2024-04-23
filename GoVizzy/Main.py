@@ -30,7 +30,7 @@ def handle_submit_button_clicked(b):
             print(f"Source file found: {source_path}")
             destination_path = os.path.join(directory, fileName)
             new_cube = cv.Cube()
-            new_cube.load_cube(destination_path)
+            new_cube.load_cube(source_path)
             DisplayUI.show_ui()
             DisplayUI.display_cube(new_cube)
             DisplayUI.display_app() 
