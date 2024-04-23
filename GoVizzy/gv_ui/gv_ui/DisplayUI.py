@@ -106,8 +106,8 @@ def display_app():
     # Containers for right menu 
     global atom_meshes, visualizer
     top_container = HBox([dropdown, in_app_exit])
-    bottom_container = HBox([newCube_button])
-    bottom_container_vbox= VBox([bottom_container], layout=Layout(align_self='flex-end'))
+    
+    bottom_container_vbox= VBox([newCube_button], layout=Layout(align_self='flex-end'))
    
     with selected_view_options:
         selected_view_options.clear_output()
