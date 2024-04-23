@@ -3,7 +3,7 @@
     Documentation for widget library: https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20List.html#file-upload
 '''
 from IPython.display import display
-from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link, BoundedFloatText, IntSlider
+from ipywidgets import Layout, Button, Box, Textarea, Label, ColorPicker, FloatSlider, Checkbox, link, BoundedFloatText, IntSlider, Dropdown
 from ipyvolume.widgets import Mesh, Scatter
 import numpy as np
 
@@ -67,6 +67,13 @@ slice_z_check = Checkbox(
     indent=True
 )
 
+slice_color = Dropdown(
+    options=['Grays', 'Reds', 'Oranges', 'Greens', 'Blues', 'Purples'],
+    description='Slice Color Scheme',
+    disabled=False,
+    indent=True
+)
+
 bond_visibility_toggle = Checkbox(
     value=True,
     description='Bond Visibility',
@@ -75,7 +82,7 @@ bond_visibility_toggle = Checkbox(
 )
 
 bond_color_picker = ColorPicker(
-    value="black", 
+    value="black",
     description="Bond Color"
 )
 
@@ -146,7 +153,7 @@ def atom_scale_slider(atom: Mesh, description: str="Scale"):
 # Input form items
 form_items = [
 
-    Box([Label(value='Path to .cube file'), 
+    Box([Label(value='Path to .cube file'),
          Textarea()], layout=form_item_layout),
     color,
     Button(description='Submit', layout=Layout(flex='1 1 0%', width='auto')),
@@ -162,4 +169,4 @@ form = Box(form_items, layout=Layout(
     width='50%'
 ))
 
-form, color, slice_x_slider, slice_y_slider, slice_z_slider, slice_x_check, slice_y_check, slice_z_check, bond_scale_slider, bond_color_picker, bond_visibility_toggle
+form, color, slice_x_slider, slice_y_slider, slice_z_slider, slice_x_check, slice_y_check, slice_z_check, slice_color, bond_scale_slider, bond_color_picker, bond_visibility_toggle

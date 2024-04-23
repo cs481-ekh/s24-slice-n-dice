@@ -121,7 +121,8 @@ def display_app():
                               gvWidgets.slice_y_check,
                               gvWidgets.slice_z_slider,
                               gvWidgets.slice_z_check,
-                              figure_controls])
+                              gvWidgets.slice_color,
+                              figure_controls,])
             display(slice_box)
             
             
