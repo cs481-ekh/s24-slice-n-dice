@@ -152,7 +152,8 @@ def display_app():
             print("Invalid option selected")
 
     # Display the layout
-    view_bar = VBox([top_container, selected_view_options, bottom_container], layout=Layout(flex='1', height='500px'))
+    view_bar = VBox([top_container, selected_view_options, bottom_container], 
+                layout=Layout(flex='1', align_self='flex-end'))
        
     display_box = HBox([large_box, view_bar])
     app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,
