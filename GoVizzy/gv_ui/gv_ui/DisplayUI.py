@@ -107,7 +107,6 @@ def display_app():
     global atom_meshes, visualizer
     top_container = HBox([dropdown, in_app_exit])
     
-    bottom_container_vbox= VBox([newCube_button], layout=Layout(align_self='flex-end'))
    
     with selected_view_options:
         selected_view_options.clear_output()
@@ -153,7 +152,8 @@ def display_app():
             print("Invalid option selected")
 
     # Display the layout
-    view_bar = VBox([top_container, selected_view_options, newCube_button], 
+    button_container = VBox([newCube_button], layout=Layout(justify_content='flex-end'))
+    view_bar = VBox([top_container, selected_view_options, button_container], 
                 layout=Layout(flex='1'))
        
     display_box = HBox([large_box, view_bar])
