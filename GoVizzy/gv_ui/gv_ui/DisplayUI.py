@@ -12,17 +12,17 @@ from IPython.display import display
 
 # Define globals
 selected_option ='Slice Options'
-options = ['Slice Options', 'Mesh Options'] #, 'Color Options']
+options = ['Slice Options', 'Mesh Options'] 
 dropdown = Dropdown(options=options, value=options[0], layout=Layout(margin='5px 0 0 5px'));
 large_box = Output(layout=Layout(width="70%", height="100%"))
-selected_view_options = Output(layout=Layout(width="auto", height="300px"))
+selected_view_options = Output(layout=Layout(width="auto", height='500px'))
 slice_picker = Output(layout=Layout(flex= '1',border='1px solid black'))
 slice_picker_descr = widgets.Label(value="Slice Picker", layout=Layout(margin='5px 0 0 5px'))
 exit_button = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
 exit_button.layout.margin = '0 0 0 auto'  # Add margin to the left to push it to the right
 in_app_exit = widgets.Button(description='[X]', button_style='danger',border='1px solid black')
-
-newCube_button = Button(description='New Cube', layout=Layout(flex= '1',  border='1px solid black'))
+spacer = Output( layout=Layout(flex= '1'))
+newCube_button = Button(description='New Cube', layout=Layout(width = 'auto',  border='1px solid black'))
 save_button = Button(description='Save', layout=Layout(flex= '1',  border='1px solid black'))
 
 # atom mesh globals
@@ -106,7 +106,7 @@ def display_app():
     # Containers for right menu 
     global atom_meshes, visualizer
     top_container = HBox([dropdown, in_app_exit])
-    bottom_container = HBox([newCube_button, save_button])
+    
    
     with selected_view_options:
         selected_view_options.clear_output()
@@ -122,7 +122,8 @@ def display_app():
                               gvWidgets.slice_z_slider,
                               gvWidgets.slice_z_check,
                               gvWidgets.slice_color,
-                              figure_controls,])
+                              figure_controls,
+                              newCube_button])
             display(slice_box)
             
             
@@ -143,25 +144,19 @@ def display_app():
                              gvWidgets.bond_visibility_toggle,
                              gvWidgets.bond_color_picker,
                              gvWidgets.bond_scale_slider,
-                             figure_controls])
+                             figure_controls,
+                             newCube_button])
             display(mesh_box)
                 
-            
-
-        
-        
-        elif selected_option == 'Color Options':
-            #ADD color controls here 
-            pass
-            
-        
         
         
         else:
             print("Invalid option selected")
 
     # Display the layout
-    view_bar = VBox([top_container, selected_view_options, bottom_container], layout=Layout(flex='1'))
+    button_container = VBox([newCube_button], layout=Layout(justify_content='flex-end'))
+    view_bar = VBox([top_container, selected_view_options], 
+                layout=Layout(flex='1'))
        
     display_box = HBox([large_box, view_bar])
     app_layout = AppLayout(header=None, left_sidebar=None, center=display_box,

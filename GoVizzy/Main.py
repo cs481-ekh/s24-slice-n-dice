@@ -28,17 +28,14 @@ def handle_submit_button_clicked(b):
         source_path = fileInput.find_source_path(fileName, directory)
         if source_path:
             print(f"Source file found: {source_path}")
-            unique_file_name = fileInput.generate_unique_filename(fileName, directory)
-            destination_path = os.path.join(directory, unique_file_name)
-            success = fileInput.copy_file(source_path, destination_path)
-            if success:
-                new_cube = cv.Cube()
-                new_cube.load_cube(destination_path)
-                DisplayUI.show_ui()
-                DisplayUI.display_cube(new_cube)
-                DisplayUI.display_app() 
-                file_input.layout.visibility = 'hidden'  # Hide the file input widget
-                submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
+            destination_path = os.path.join(directory, fileName)
+            new_cube = cv.Cube()
+            new_cube.load_cube(source_path)
+            DisplayUI.show_ui()
+            DisplayUI.display_cube(new_cube)
+            DisplayUI.display_app() 
+            file_input.layout.visibility = 'hidden'  # Hide the file input widget
+            submit_button.layout.visibility = 'hidden'  # Hide the submit button widget
 
 
             # Handlers for dropdown change and button clicks
